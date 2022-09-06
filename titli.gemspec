@@ -5,8 +5,8 @@ require_relative "lib/titli/version"
 Gem::Specification.new do |spec|
   spec.name = "titli"
   spec.version = Titli::VERSION
-  spec.authors = ["Ali-Akber Saifee"]
-  spec.email = ["ali@indydevs.org"]
+  spec.authors = ["Ali-Akber Saifee", "Ankita Gupta"]
+  spec.email = ["ali@indydevs.org", "ankita@indydevs.org"]
 
   spec.summary = "Selectively run specs based on changed files"
   spec.description = "Selectively run specs based on changed files"
