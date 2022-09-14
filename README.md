@@ -1,9 +1,9 @@
 # Titli
 ```
- __   __ 
+ __   __
 (  \,/  )
- \_ | _/ 
- (_/ \_) 
+ \_ | _/
+ (_/ \_)
 ```
 
 
@@ -11,7 +11,7 @@
 
 ## Minitest
 
-- Add the gem as a dependency 
+- Add the gem as a dependency
   ```ruby
   gem "titli", path: "$path_to/titli"
   ```
@@ -23,7 +23,7 @@
   ```ruby
   gem "titli", path: "$path_to/titli"
   ```
-- Include the plugin in your `spec_helper.rb`: 
+- Include the plugin in your `spec_helper.rb`:
   ```ruby
   require 'titli/rspec'
   ```
@@ -35,7 +35,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/indydevs/titli. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/titli/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/indydevs/titli. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/indydevs/titli/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
