@@ -14,7 +14,6 @@ module RSpec
   end
 end
 
-
 RSpec.configure do |config|
   config.before(:each) do |example|
     example.metadata[:titli_effect] = false

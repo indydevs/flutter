@@ -27,6 +27,7 @@ module Titli
       @current_tracepoint&.disable
     end
 
+    # TODO: this should not be dumb....
     def skip?(test)
       @mapping.key?(test)
     end
