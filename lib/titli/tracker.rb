@@ -2,7 +2,7 @@
 
 require "set"
 require_relative "persistence"
-require 'pry'
+require "pry"
 
 module Titli
   class Tracker

@@ -10,3 +10,5 @@ gem "minitest", "~> 5.0"
 
 gem "rubocop", "~> 1.21"
 gem "rubocop-shopify", require: false
+
+gem "pry", "~> 0.14.1"
