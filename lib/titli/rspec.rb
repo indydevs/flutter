@@ -4,6 +4,8 @@ require "rspec"
 require_relative "tracker"
 require "pry"
 
+# TODO: this should be explicitly enabled by something like Titli.enable { |titli| .... }
+
 module RSpec
   class << self
     def tracker
@@ -11,6 +13,7 @@ module RSpec
     end
   end
 end
+
 
 RSpec.configure do |config|
   config.before(:each) do |example|

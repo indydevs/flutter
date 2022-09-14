@@ -26,6 +26,8 @@ module Titli
     end
 
     class SimpleStorage < AbstractStorage
+      # ruby >= 3.1 requires this
+      YAML_LOAD_OPTS = RUBY_VERSION > "3.1" ? { permitted_classes: [Hash, Set] } : {}
       def initialize(path:)
         @path = File.absolute_path(path)
         @updates_path = File.join(@path, "state.yml")
@@ -34,9 +36,8 @@ module Titli
       end
 
       def load!
-        # @state = YAML.load(File.read(@updates_path), permitted_classes: [Hash, Set]) if File.exist?(@updates_path)
         if File.exist?(@updates_path)
-          persisted = YAML.load(File.read(@updates_path))
+          persisted = YAML.load(File.read(@updates_path), **YAML_LOAD_OPTS)
           @state.update(persisted) if persisted
         end
       end
