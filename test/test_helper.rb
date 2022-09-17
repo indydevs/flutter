@@ -13,7 +13,7 @@ else
   SimpleCov.formatter = SimpleCov::Formatter::Console
 end
 
-SimpleCov.start
+SimpleCov.start { track_files "lib/**/*.rb" }
 
 Minitest.load_plugins
 require "minitest/autorun"
