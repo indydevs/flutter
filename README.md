@@ -16,6 +16,8 @@
   gem "titli", path: "$path_to/titli"
   ```
 - Enable the plugin with `TESTOPTS='--titli'` when running `bundle exec rake test`
+- To start from scratch use `TESTOPTS='--titli --titli-reset'` to clear any persisted
+  state and regenerate the source mappings for previous test runs
 
 ## RSpec
 

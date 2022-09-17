@@ -7,8 +7,11 @@ module Minitest
     attr_reader :titli_tracker
 
     def plugin_titli_options(opts, _options)
-      opts.on("--titli", "Watch for changes and rerun relevant tests") do
+      opts.on("--titli", "Only run tests affected by files changed since last run") do
         @titli_enabled = true
+      end
+      opts.on("--titli-reset", "Reset titli persisted state before running tests") do
+        @titli_reinit = true
       end
     end
 
@@ -16,6 +19,7 @@ module Minitest
       if @titli_enabled
         require "minitest/titli"
         @titli_tracker = ::Titli::Tracker.new(["./lib"])
+        @titli_tracker.reset! if @titli_reinit
         reporter << Minitest::TitliReporter.new(@titli_tracker, options)
       end
     end
