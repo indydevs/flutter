@@ -4,23 +4,6 @@ require "rspec"
 require_relative "tracker"
 require "pry"
 
-# TODO: this should be explicitly enabled by something like Titli.enable { |titli| .... }
-
-RSpec.configure do |config|
-  config.before(:each) do |example|
-    Titli::RSpec.tracker.start(example.full_description) if Titli::RSpec.enabled?
-  end
-  config.after(:each) do |_example|
-    Titli::RSpec.tracker.stop if Titli::RSpec.enabled?
-  end
-  config.after(:suite) do
-    if Titli::RSpec.enabled?
-      $stdout.puts "Titli filtered out #{Titli::RSpec.filtered} examples"
-      Titli::RSpec.tracker.persist!
-    end
-  end
-end
-
 module Titli
   module RSpec
     class Config
@@ -46,9 +29,26 @@ module Titli
         yield config
 
         @enabled = config.enabled
-        @filtered = 0
-        @tracker = Titli::Tracker.new(config.sources, config.storage_class, config.storage_options)
-        @tracker.reset! if config.reset_storage
+        if @enabled
+          RSpec.configure do |config|
+            config.before(:each) do |example|
+              Titli::RSpec.tracker.start(example.full_description) if Titli::RSpec.enabled?
+            end
+            config.after(:each) do |_example|
+              Titli::RSpec.tracker.stop if Titli::RSpec.enabled?
+            end
+            config.after(:suite) do
+              if Titli::RSpec.enabled?
+                $stdout.puts "Titli filtered out #{Titli::RSpec.filtered} examples"
+                Titli::RSpec.tracker.persist!
+              end
+            end
+          end
+
+          @filtered = 0
+          @tracker = Titli::Tracker.new(config.sources, config.storage_class, config.storage_options)
+          @tracker.reset! if config.reset_storage
+        end
       end
     end
 

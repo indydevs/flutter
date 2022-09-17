@@ -33,7 +33,6 @@ module Titli
       @current_tracepoint&.disable
     end
 
-    # TODO: this should not be dumb....
     def skip?(test)
       return false unless @test_mapping.key?(test)
 
