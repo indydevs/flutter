@@ -30,7 +30,7 @@ module Titli
 
         @enabled = config.enabled
         if @enabled
-          RSpec.configure do |config|
+          ::RSpec.configure do |config|
             config.before(:each) do |example|
               Titli::RSpec.tracker.start(example.full_description) if Titli::RSpec.enabled?
             end

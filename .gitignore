@@ -3,6 +3,7 @@
 /.titli
 /.config
 /coverage/
+/rspec_coverage/
 /InstalledFiles
 /pkg/
 /spec/reports/

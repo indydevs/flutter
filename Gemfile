@@ -20,3 +20,5 @@ gem "simplecov", "~> 0.21.2", groups: [:development, :test]
 gem "simplecov-console", "~> 0.9.1", groups: [:development, :test]
 
 gem "simplecov-cobertura", "~> 2.1", groups: [:development, :test]
+
+gem "rspec", "~> 3.11"
