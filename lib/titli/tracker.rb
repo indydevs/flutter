@@ -86,13 +86,14 @@ module Titli
 
     def method_prefix(tracepoint_class)
       return unless tracepoint_class
+
       @method_prefixes[tracepoint_class] ||= if tracepoint_class.to_s.start_with?("#<Class")
         tracepoint_class.to_s.sub(/#<Class:(.*?)>/, '\1::')
       else
         "#{tracepoint_class}:"
       end
-
     end
+
     def tracked?(file, _method)
       @sources.any?(->(source) { file.start_with?(source) })
     end
