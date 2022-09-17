@@ -12,11 +12,23 @@ module Titli
         load!
       end
 
+      def update_test_mapping!(mapping)
+        raise NotImplementedError
+      end
+
+      def update_source_mapping!(mapping)
+        raise NotImplementedError
+      end
+
       def persist!(updates)
         raise NotImplementedError
       end
 
       def to_s
+        raise NotImplementedError
+      end
+
+      def clear!
         raise NotImplementedError
       end
 
@@ -27,29 +39,41 @@ module Titli
 
     class SimpleStorage < AbstractStorage
       # ruby >= 3.1 requires this
-      YAML_LOAD_OPTS = RUBY_VERSION > "3.1" ? { permitted_classes: [Hash, Set] } : {}
+      YAML_LOAD_OPTS = RUBY_VERSION > "3.1" ? { permitted_classes: [Hash, Set, Symbol] } : {}
       def initialize(path:)
         @path = File.absolute_path(path)
-        @updates_path = File.join(@path, "state.yml")
-        @state = Hash.new { |h, k| h[k] = Hash.new { |h, k| h[k] = Set.new } }
+        @full_path = File.join(@path, "state.yml")
+        @state = { test_mapping: {}, source_mapping: {} }
         super()
       end
 
       def load!
-        if File.exist?(@updates_path)
-          persisted = YAML.load(File.read(@updates_path), **YAML_LOAD_OPTS)
+        if File.exist?(@full_path)
+          persisted = YAML.load(File.read(@full_path), **YAML_LOAD_OPTS)
           @state.update(persisted) if persisted
         end
       end
 
-      def persist!(updates)
-        @state.merge!(updates)
+      def update_test_mapping!(mapping)
+        @state.fetch(:test_mapping) { @state[:test_mapping] = {} }.merge!(mapping)
+      end
+
+      def update_source_mapping!(mapping)
+        @state.fetch(:source_mapping) { @state[:source_mapping] = {} }.merge!(mapping)
+      end
+
+      def clear!
+        FileUtils.rm(@full_path) if File.exist?(@full_path)
+        @state.clear
+      end
+
+      def persist!
         FileUtils.mkdir_p(@path) unless File.exist?(@path)
-        File.open(@updates_path, "w") { |file| file.write(@state.to_yaml) }
+        File.open(@full_path, "w") { |file| file.write(@state.to_yaml) }
       end
 
       def to_s
-        "state: #{@updates_path}"
+        "state: #{@full_path}"
       end
     end
   end
