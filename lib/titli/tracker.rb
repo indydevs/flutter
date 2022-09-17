@@ -67,8 +67,8 @@ module Titli
     def hit!(test, tracepoint)
       return unless File.exist?(tracepoint.path)
 
-      rel_path = Pathname.new(tracepoint.path).relative_path_from(Dir.pwd).to_s
       if tracked?(tracepoint.path, tracepoint.callee_id)
+        rel_path = relative_path(tracepoint.path)
         parent = tracepoint.defined_class
         prefix = nil
         if parent
@@ -84,6 +84,11 @@ module Titli
           prefix ? "#{prefix}#{tracepoint.callee_id}" : tracepoint.callee_id
         )
       end
+    end
+
+    def relative_path(file)
+      @path_mapping ||= {}
+      @path_mapping[file] ||= Pathname.new(file).relative_path_from(Dir.pwd).to_s
     end
 
     def tracked?(file, _method)
