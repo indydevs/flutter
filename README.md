@@ -1,4 +1,7 @@
 # Titli
+[![CI](https://github.com/indydevs/titli/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/indydevs/titli/actions/workflows/main.yml)
+[![codecov](https://codecov.io/github/indydevs/titli/branch/main/graph/badge.svg?token=XANF37D9C1)](https://codecov.io/github/indydevs/titli)
+
 ```
  __   __
 (  \,/  )
@@ -32,11 +35,11 @@
 - Enable & configure it in your `spec_helper.rb`:
   ```ruby
   Titli::RSpec.configure do |config|
-    config.enabled = true # This is the default 
+    config.enabled = true # This is the default
     config.sources << "./app"
     config.storage_class = Titli::Persistence::SimpleStorage # (this is the default)
     config.storage_options = {path: "./titli"} # This is the default
-    config.reset_storage = false # this is the default.  
+    config.reset_storage = false # this is the default
   end
   ```
 ## Development
