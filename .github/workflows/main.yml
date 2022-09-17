@@ -12,7 +12,8 @@ jobs:
     strategy:
       matrix:
         ruby-version: ['2.7', '3.0', '3.1']
-
+    env:
+      CI: true
     steps:
     - uses: actions/checkout@v3
     - name: Set up Ruby
@@ -27,3 +28,8 @@ jobs:
       run: bundle exec rubocop
     - name: Run tests
       run: bundle exec rake test
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: coverage/coverage.xml
