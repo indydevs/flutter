@@ -24,17 +24,14 @@ end
 module Titli
   module RSpec
     class Config
-      attr_accessor :enabled, :sources, :storage_options, :storage_class
+      attr_accessor :enabled, :sources, :storage_options, :storage_class, :reset_storage
 
       def initialize
         @enabled = true
         @sources = ["app"]
         @storage_options = { path: "./.titli" }
         @storage_class = Titli::Persistence::SimpleStorage
-      end
-
-      def reset!
-        Titli::RSpec.tracker.reset!
+        @reset_storage = false
       end
     end
     class << self
@@ -44,12 +41,14 @@ module Titli
         @enabled
       end
 
-      def configure(&block)
+      def configure
         config = Config.new
         yield config
+
         @enabled = config.enabled
         @filtered = 0
         @tracker = Titli::Tracker.new(config.sources, config.storage_class, config.storage_options)
+        @tracker.reset! if config.reset_storage
       end
     end
 
@@ -58,11 +57,11 @@ module Titli
         original = super
         return original unless Titli::RSpec.enabled?
 
-        filtered = original.select do |example|
-          !Titli::RSpec.tracker.skip?(example.full_description)
+        original.select do |example|
+          skip = Titli::RSpec.tracker.skip?(example.full_description)
+          Titli::RSpec.filtered += 1 if skip
+          !skip
         end
-        Titli::RSpec.filtered += 1
-        filtered
       end
     end
   end

@@ -29,6 +29,16 @@
   ```ruby
   require 'titli/rspec'
   ```
+- Enable & configure it in your `spec_helper.rb`:
+  ```ruby
+  Titli::RSpec.configure do |config|
+    config.enabled = true # This is the default 
+    config.sources << "./app"
+    config.storage_class = Titli::Persistence::SimpleStorage # (this is the default)
+    config.storage_options = {path: "./titli"} # This is the default
+    config.reset_storage = false # this is the default.  
+  end
+  ```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
