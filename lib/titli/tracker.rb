@@ -18,6 +18,8 @@ module Titli
       @test_mapping = @storage.state.fetch(:test_mapping, {})
       @source_mapping = @storage.state.fetch(:source_mapping, {})
       @current_source_mapping = {}
+      @path_mapping = {}
+      @method_prefixes = {}
     end
 
     def start(test)
@@ -69,15 +71,7 @@ module Titli
 
       if tracked?(tracepoint.path, tracepoint.callee_id)
         rel_path = relative_path(tracepoint.path)
-        parent = tracepoint.defined_class
-        prefix = nil
-        if parent
-          prefix = if tracepoint.defined_class.to_s.start_with?("#<Class")
-            tracepoint.defined_class.to_s.sub(/#<Class:(.*?)>/, '\1::')
-          else
-            "#{tracepoint.defined_class}:"
-          end
-        end
+        prefix = method_prefix(tracepoint.defined_class)
         @test_mapping.fetch(test) do
           @test_mapping[test] = {}
         end.fetch(rel_path) { @test_mapping[test][rel_path] = Set.new } << (
@@ -87,10 +81,18 @@ module Titli
     end
 
     def relative_path(file)
-      @path_mapping ||= {}
       @path_mapping[file] ||= Pathname.new(file).relative_path_from(Dir.pwd).to_s
     end
 
+    def method_prefix(tracepoint_class)
+      return unless tracepoint_class
+      @method_prefixes[tracepoint_class] ||= if tracepoint_class.to_s.start_with?("#<Class")
+        tracepoint_class.to_s.sub(/#<Class:(.*?)>/, '\1::')
+      else
+        "#{tracepoint_class}:"
+      end
+
+    end
     def tracked?(file, _method)
       @sources.any?(->(source) { file.start_with?(source) })
     end
