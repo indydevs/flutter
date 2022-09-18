@@ -26,8 +26,10 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Lint
       run: bundle exec rubocop
-    - name: Run tests
+    - name: Run tests (ninitest)
       run: bundle exec rake test
+    - name: Run tests (rspec)
+      run: bundle exec rspec
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:
