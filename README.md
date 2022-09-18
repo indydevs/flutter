@@ -22,6 +22,15 @@
 - To start from scratch use `TESTOPTS='--titli --titli-reset'` to clear any persisted
   state and regenerate the source mappings for previous test runs
 
+### With guard
+Add the following to your `Guardfile`:
+
+```ruby
+guard :minitest, cli: "--titli", test_folders: ["test"] do
+  watch(%r{^{test,lib}/(.*/)?([^/]+)\.rb$}) { "spec" }
+end
+```
+
 ## RSpec
 
 - Add the gem as a dependency:
@@ -42,6 +51,15 @@
     config.reset_storage = false # this is the default
   end
   ```
+### With guard
+Using the same configuration as above add the following to your `Guardfile`:
+
+```ruby
+guard :rspec, cmd: "rspec" do
+  watch(%r{^{spec,lib}/(.*/)?([^/]+)\.rb$}) { "spec" }
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

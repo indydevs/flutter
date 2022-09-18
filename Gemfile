@@ -6,19 +6,20 @@ gemspec
 
 gem "rake", "~> 13.0"
 
-gem "minitest", "~> 5.0"
+group :test, :development do
+  gem "pry", "~> 0.14.1"
+  gem "overcommit", "~> 0.59.1"
+  gem "guard", "~> 2.18"
+  gem "rubocop", "~> 1.21"
+  gem "rubocop-shopify", require: false
+end
 
-gem "rubocop", "~> 1.21"
-gem "rubocop-shopify", require: false
-
-gem "pry", "~> 0.14.1"
-
-gem "overcommit", "~> 0.59.1", group: :development
-
-gem "simplecov", "~> 0.21.2", groups: [:development, :test], require: false
-
-gem "simplecov-console", "~> 0.9.1", groups: [:development, :test]
-
-gem "simplecov-cobertura", "~> 2.1", groups: [:development, :test]
-
-gem "rspec", "~> 3.11"
+group :test do
+  gem "guard-minitest", "~> 2.4"
+  gem "guard-rspec", "~> 4.7"
+  gem "minitest", "~> 5.0"
+  gem "rspec", "~> 3.11"
+  gem "simplecov", "~> 0.21.2", require: false
+  gem "simplecov-console", "~> 0.9.1"
+  gem "simplecov-cobertura", "~> 2.1"
+end
