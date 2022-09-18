@@ -19,6 +19,7 @@ class TestTracker < Minitest::Test
     tracker.start("fubar")
     tracker.stop
     assert(tracker.persist!)
+    assert(tracker.skip?("fubar"))
     assert_includes(tracker.test_mapping["fubar"].keys, "lib/titli/tracker.rb")
   end
 end
