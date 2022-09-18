@@ -68,9 +68,30 @@ This project uses [overcommit](https://github.com/sds/overcommit) to enforce sta
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-## Known Issues
+# TODO
 
-- Changes to tests themselves do not re-trigger execution
+## Functionality
+- [ ] Changes to tests themselves do not re-trigger execution
+
+## Code quality
+- [ ] Separate public/private API
+- [ ] Add rdoc / yard documentation
+
+## Testing
+- [ ] Improve test coverage
+- [ ] Add integration tests
+- [ ] Test against large / complex codebases
+
+## Performance
+- [ ] Ensure only bare minimum signature calculation occurs
+- [ ] Optimize inner loop of tracking test case -> method calls
+- [ ] Evaluate alternate storage options (sqlite, leveldb..?)
+- [ ] Evaluate using external hints for changes (for example when using with VCS)
+
+## Usability
+- [ ] Quick start guide
+- [x] Recipes for guard
+- [ ] Recipes for CI
 
 ## Contributing
 
