@@ -27,6 +27,8 @@ jobs:
     - name: Lint
       run: bundle exec rubocop
     - name: Run tests (ninitest)
+      env:
+        TESTOPTS: '--titli --titli-reset'
       run: bundle exec rake test
     - name: Run tests (rspec)
       run: bundle exec rspec
