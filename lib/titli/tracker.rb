@@ -23,6 +23,7 @@ module Titli
     end
 
     def start(test)
+      @test_mapping.delete(test)
       @current_tracepoint = TracePoint.new(:call) do |tp|
         hit!(test, tp)
       end
