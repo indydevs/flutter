@@ -8,11 +8,9 @@
  \_ | _/
  (_/ \_)
 ```
-
-
 ## Usage
 
-## Minitest
+### Minitest
 
 - Add the gem as a dependency
   ```ruby
@@ -22,7 +20,7 @@
 - To start from scratch use `TESTOPTS='--titli --titli-reset'` to clear any persisted
   state and regenerate the source mappings for previous test runs
 
-### With guard
+#### With guard
 Add the following to your `Guardfile`:
 
 ```ruby
@@ -31,7 +29,7 @@ guard :minitest, cli: "--titli", test_folders: ["test"] do
 end
 ```
 
-## RSpec
+### RSpec
 
 - Add the gem as a dependency:
   ```ruby
@@ -51,7 +49,7 @@ end
     config.reset_storage = false # this is the default
   end
   ```
-### With guard
+#### With guard
 Using the same configuration as above add the following to your `Guardfile`:
 
 ```ruby
@@ -68,27 +66,27 @@ This project uses [overcommit](https://github.com/sds/overcommit) to enforce sta
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-# TODO
+## TODO
 
-## Functionality
+### Functionality
 - [ ] Changes to tests themselves do not re-trigger execution
 
-## Code quality
+### Code quality
 - [ ] Separate public/private API
 - [ ] Add rdoc / yard documentation
 
-## Testing
+### Testing
 - [ ] Improve test coverage
 - [ ] Add integration tests
 - [ ] Test against large / complex codebases
 
-## Performance
+### Performance
 - [ ] Ensure only bare minimum signature calculation occurs
 - [ ] Optimize inner loop of tracking test case -> method calls
 - [ ] Evaluate alternate storage options (sqlite, leveldb..?)
 - [ ] Evaluate using external hints for changes (for example when using with VCS)
 
-## Usability
+### Usability
 - [ ] Quick start guide
 - [x] Recipes for guard
 - [ ] Recipes for CI
