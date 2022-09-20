@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-guard :minitest, cli: "--flutter -v", test_folders: ["test"] do
+guard :minitest, test_folders: ["test"] do
   watch(%r{^lib/(.*/)?([^/]+)\.rb$}) { "test" }
 end
 

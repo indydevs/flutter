@@ -2,6 +2,7 @@
 
 require_relative "flutter/version"
 require_relative "flutter/config"
+require_relative "flutter/minitest"
 require_relative "flutter/rspec"
 
 module Flutter

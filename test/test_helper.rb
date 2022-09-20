@@ -15,7 +15,12 @@ if ENV["CI"] || ENV["COVERAGE"]
   end
 end
 require "flutter"
-require "minitest"
 
+Flutter.configure do |config|
+  config.enabled = true
+  config.reset_storage = ENV["CI"]
+end
+
+require "minitest"
 Minitest.load_plugins
 require "minitest/autorun"

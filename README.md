@@ -16,15 +16,26 @@
   ```ruby
   gem "flutter", path: "$path_to/flutter"
   ```
-- Enable the plugin with `TESTOPTS='--flutter'` when running `bundle exec rake test`
-- To start from scratch use `TESTOPTS='--flutter --flutter-reset'` to clear any persisted
-  state and regenerate the source mappings for previous test runs
+- Include the plugin in your `test_helper.rb`:
+  ```ruby
+  require 'flutter'
+  ```
+- Enable & configure it in your `test_helper.rb`:
+  ```ruby
+  Flutter.configure do |config|
+    config.enabled = true
+    config.sources = ["./app", "./test"] # The default is Dir.pwd
+    config.storage_class = Flutter::Persistence::SimpleStorage # This is the default
+    config.storage_options = {path: "./flutter"} # This is the default
+    config.reset_storage = false # This is the default
+  end
+  ```
 
 #### With guard
 Add the following to your `Guardfile`:
 
 ```ruby
-guard :minitest, cli: "--flutter", test_folders: ["test"] do
+guard :minitest, test_folders: ["test"] do
   watch(%r{^{test,lib}/(.*/)?([^/]+)\.rb$}) { "test" }
 end
 ```
@@ -37,7 +48,7 @@ end
   ```
 - Include the plugin in your `spec_helper.rb`:
   ```ruby
-  require 'flutter/rspec'
+  require 'flutter'
   ```
 - Enable & configure it in your `spec_helper.rb`:
   ```ruby
