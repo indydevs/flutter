@@ -41,12 +41,12 @@ end
   ```
 - Enable & configure it in your `spec_helper.rb`:
   ```ruby
-  Flutter::RSpec.configure do |config|
-    config.enabled = true # This is the default
-    config.sources << "./app"
-    config.storage_class = Flutter::Persistence::SimpleStorage # (this is the default)
+  Flutter.configure do |config|
+    config.enabled = true
+    config.sources = ["./app", "./spec"] # The default is Dir.pwd
+    config.storage_class = Flutter::Persistence::SimpleStorage # This is the default
     config.storage_options = {path: "./flutter"} # This is the default
-    config.reset_storage = false # this is the default
+    config.reset_storage = false # This is the default
   end
   ```
 #### With guard
