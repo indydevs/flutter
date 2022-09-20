@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "titli"
 require "titli/tracker"
 
 module Minitest
@@ -8,18 +9,20 @@ module Minitest
 
     def plugin_titli_options(opts, _options)
       opts.on("--titli", "Only run tests affected by files changed since last run") do
-        @titli_enabled = true
+        ::Titli.config.enabled = true
       end
       opts.on("--titli-reset", "Reset titli persisted state before running tests") do
-        @titli_reinit = true
+        ::Titli.config.reset_storage = true
       end
     end
 
     def plugin_titli_init(options)
-      if @titli_enabled
+      if ::Titli.enabled
         require "minitest/titli"
-        @titli_tracker = ::Titli::Tracker.new(["./lib"])
-        @titli_tracker.reset! if @titli_reinit
+        @titli_tracker = ::Titli::Tracker.new(
+          ::Titli.config.sources, ::Titli.config.storage_class, ::Titli.config.storage_options,
+        )
+        @titli_tracker.reset! if ::Titli.config.reset_storage
         reporter << Minitest::TitliReporter.new(@titli_tracker, options)
       end
     end
@@ -33,9 +36,11 @@ module Minitest
     end
 
     def report
+      return unless ::Titli.enabled
+
       @tracker.persist!
       if @verbose
-        puts "Persisted titli #{@tracker}"
+        $stdout.puts "Persisted titli #{@tracker}"
       end
     end
   end

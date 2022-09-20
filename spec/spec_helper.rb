@@ -17,10 +17,10 @@ if ENV["CI"] || ENV["COVERAGE"]
 end
 
 require "rspec"
-require "titli/rspec"
+require "titli"
 
-Titli::RSpec.configure do |config|
-  config.sources << "lib"
+Titli.configure do |config|
+  config.sources << Dir.pwd
   config.storage_options = { path: "./.titli/rspec" }
   config.reset_storage = ENV["CI"]
   config.enabled = true

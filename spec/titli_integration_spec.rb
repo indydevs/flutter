@@ -4,6 +4,6 @@ require "spec_helper"
 require "titli/rspec"
 describe Titli::RSpec do
   it "is enabled" do
-    expect(Titli::RSpec).to(be_enabled)
+    expect(Titli.enabled).to(be_truthy)
   end
 end

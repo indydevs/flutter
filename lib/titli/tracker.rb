@@ -9,10 +9,7 @@ module Titli
   class Tracker
     attr_reader :test_mapping, :source_mapping
 
-    def initialize(
-      sources = [], storage_class = Persistence::SimpleStorage,
-      storage_options = { "path": "./.titli" }
-    )
+    def initialize(sources, storage_class, storage_options)
       @sources = sources.map { |s| File.absolute_path(s) }
       @storage = storage_class.new(**storage_options)
       @test_mapping = @storage.state.fetch(:test_mapping, {})

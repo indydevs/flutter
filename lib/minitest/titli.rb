@@ -12,11 +12,11 @@ module Minitest
 
     def after_setup
       super
-      Minitest.titli_tracker&.start(location)
+      Minitest.titli_tracker&.start(location) if ::Titli.enabled
     end
 
     def before_teardown
-      Minitest.titli_tracker&.stop
+      Minitest.titli_tracker&.stop if ::Titli.enabled
       super
     end
   end
