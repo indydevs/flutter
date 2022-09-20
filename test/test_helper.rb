@@ -14,7 +14,7 @@ if ENV["CI"] || ENV["COVERAGE"]
     track_files "lib/**/*.rb"
   end
 end
-require "titli"
+require "flutter"
 require "minitest"
 
 Minitest.load_plugins

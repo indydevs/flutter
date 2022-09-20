@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
-require_relative "lib/titli/version"
+require_relative "lib/flutter/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "titli"
-  spec.version = Titli::VERSION
+  spec.name = "flutter"
+  spec.version = Flutter::VERSION
   spec.authors = ["Ali-Akber Saifee", "Ankita Gupta"]
   spec.email = ["ali@indydevs.org", "ankita@indydevs.org"]
 
   spec.summary = "Selectively run specs based on changed files"
   spec.description = "Selectively run specs based on changed files"
-  spec.homepage = "https://github.com/indydevs/titli"
+  spec.homepage = "https://github.com/indydevs/flutter"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/indydevs/titli"
-  spec.metadata["changelog_uri"] = "https://github.com/indydevs/titli/blob/master/CHANGELOG.md"
+  spec.metadata["source_code_uri"] = "https://github.com/indydevs/flutter"
+  spec.metadata["changelog_uri"] = "https://github.com/indydevs/flutter/blob/master/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

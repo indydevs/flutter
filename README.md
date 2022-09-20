@@ -1,6 +1,6 @@
-# Titli
-[![CI](https://github.com/indydevs/titli/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/indydevs/titli/actions/workflows/main.yml)
-[![codecov](https://codecov.io/github/indydevs/titli/branch/main/graph/badge.svg?token=XANF37D9C1)](https://codecov.io/github/indydevs/titli)
+# Flutter
+[![CI](https://github.com/indydevs/flutter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/indydevs/flutter/actions/workflows/main.yml)
+[![codecov](https://codecov.io/github/indydevs/flutter/branch/main/graph/badge.svg?token=XANF37D9C1)](https://codecov.io/github/indydevs/flutter)
 
 ```
  __   __
@@ -14,17 +14,17 @@
 
 - Add the gem as a dependency
   ```ruby
-  gem "titli", path: "$path_to/titli"
+  gem "flutter", path: "$path_to/flutter"
   ```
-- Enable the plugin with `TESTOPTS='--titli'` when running `bundle exec rake test`
-- To start from scratch use `TESTOPTS='--titli --titli-reset'` to clear any persisted
+- Enable the plugin with `TESTOPTS='--flutter'` when running `bundle exec rake test`
+- To start from scratch use `TESTOPTS='--flutter --flutter-reset'` to clear any persisted
   state and regenerate the source mappings for previous test runs
 
 #### With guard
 Add the following to your `Guardfile`:
 
 ```ruby
-guard :minitest, cli: "--titli", test_folders: ["test"] do
+guard :minitest, cli: "--flutter", test_folders: ["test"] do
   watch(%r{^{test,lib}/(.*/)?([^/]+)\.rb$}) { "spec" }
 end
 ```
@@ -33,19 +33,19 @@ end
 
 - Add the gem as a dependency:
   ```ruby
-  gem "titli", path: "$path_to/titli"
+  gem "flutter", path: "$path_to/flutter"
   ```
 - Include the plugin in your `spec_helper.rb`:
   ```ruby
-  require 'titli/rspec'
+  require 'flutter/rspec'
   ```
 - Enable & configure it in your `spec_helper.rb`:
   ```ruby
-  Titli::RSpec.configure do |config|
+  Flutter::RSpec.configure do |config|
     config.enabled = true # This is the default
     config.sources << "./app"
-    config.storage_class = Titli::Persistence::SimpleStorage # (this is the default)
-    config.storage_options = {path: "./titli"} # This is the default
+    config.storage_class = Flutter::Persistence::SimpleStorage # (this is the default)
+    config.storage_options = {path: "./flutter"} # This is the default
     config.reset_storage = false # this is the default
   end
   ```
@@ -93,7 +93,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/indydevs/titli. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/indydevs/titli/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/indydevs/flutter. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/indydevs/flutter/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -101,4 +101,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Titli project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/indydevs/titli/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the Flutter project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/indydevs/flutter/blob/main/CODE_OF_CONDUCT.md).

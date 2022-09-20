@@ -3,7 +3,7 @@
 require "dry/configurable"
 require_relative "persistence"
 
-module Titli
+module Flutter
   module Config
     class << self
       private
@@ -13,8 +13,8 @@ module Titli
         other.class_eval do
           setting(:enabled, default: false, reader: true)
           setting(:sources, default: Set.new([Dir.pwd]))
-          setting(:storage_class, default: Titli::Persistence::SimpleStorage)
-          setting(:storage_options, default: { path: "./.titli" })
+          setting(:storage_class, default: Flutter::Persistence::SimpleStorage)
+          setting(:storage_options, default: { path: "./.flutter" })
           setting(:reset_storage, default: false)
         end
       end

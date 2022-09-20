@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "titli/tracker"
-require "titli/persistence"
+require "flutter/tracker"
+require "flutter/persistence"
 
 class TestTracker < Minitest::Test
   def temp_dir
@@ -11,8 +11,8 @@ class TestTracker < Minitest::Test
 
   def test_fresh_storage
     dir = temp_dir
-    tracker = Titli::Tracker.new(
-      ["./lib"], Titli::Persistence::SimpleStorage, {
+    tracker = Flutter::Tracker.new(
+      ["./lib"], Flutter::Persistence::SimpleStorage, {
         path: dir,
       },
     )
@@ -20,6 +20,6 @@ class TestTracker < Minitest::Test
     tracker.stop
     assert(tracker.persist!)
     assert(tracker.skip?("fubar"))
-    assert_includes(tracker.test_mapping["fubar"].keys, "lib/titli/tracker.rb")
+    assert_includes(tracker.test_mapping["fubar"].keys, "lib/flutter/tracker.rb")
   end
 end

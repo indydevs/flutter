@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    titli (0.1.0)
+    flutter (0.1.0)
       dry-configurable
       parser
 
@@ -121,6 +121,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  flutter!
   guard (~> 2.18)
   guard-minitest (~> 2.4)
   guard-rspec (~> 4.7)
@@ -134,7 +135,6 @@ DEPENDENCIES
   simplecov (~> 0.21.2)
   simplecov-cobertura (~> 2.1)
   simplecov-console (~> 0.9.1)
-  titli!
 
 BUNDLED WITH
    2.3.21

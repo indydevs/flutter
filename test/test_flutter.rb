@@ -2,8 +2,8 @@
 
 require "test_helper"
 
-class TestTitli < Minitest::Test
+class TestFlutter < Minitest::Test
   def test_that_it_has_a_version_number
-    refute_nil(::Titli::VERSION)
+    refute_nil(::Flutter::VERSION)
   end
 end
