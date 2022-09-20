@@ -1,3 +1,4 @@
+gemfile: Gemfile
 PreCommit:
   RuboCop:
     enabled: true
