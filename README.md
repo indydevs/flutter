@@ -25,7 +25,7 @@ Add the following to your `Guardfile`:
 
 ```ruby
 guard :minitest, cli: "--flutter", test_folders: ["test"] do
-  watch(%r{^{test,lib}/(.*/)?([^/]+)\.rb$}) { "spec" }
+  watch(%r{^{test,lib}/(.*/)?([^/]+)\.rb$}) { "test" }
 end
 ```
 
