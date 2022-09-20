@@ -13,14 +13,17 @@
 ### Minitest
 
 - Add the gem as a dependency
+
   ```ruby
   gem "flutter", path: "$path_to/flutter"
   ```
 - Include the plugin in your `test_helper.rb`:
+
   ```ruby
   require 'flutter'
   ```
 - Enable & configure it in your `test_helper.rb`:
+
   ```ruby
   Flutter.configure do |config|
     config.enabled = true
@@ -43,14 +46,17 @@ end
 ### RSpec
 
 - Add the gem as a dependency:
+
   ```ruby
   gem "flutter", path: "$path_to/flutter"
   ```
 - Include the plugin in your `spec_helper.rb`:
+
   ```ruby
   require 'flutter'
   ```
 - Enable & configure it in your `spec_helper.rb`:
+
   ```ruby
   Flutter.configure do |config|
     config.enabled = true
