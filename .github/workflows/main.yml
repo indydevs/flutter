@@ -26,7 +26,7 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Lint
       run: bundle exec rubocop
-    - name: Run tests (ninitest)
+    - name: Run tests (minitest)
       env:
         TESTOPTS: '--flutter --flutter-reset'
       run: bundle exec rake test
