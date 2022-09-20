@@ -3,7 +3,7 @@
 require "parser/current"
 require "digest/sha1"
 
-module Titli
+module Flutter
   class Parser
     attr_reader :signatures
 

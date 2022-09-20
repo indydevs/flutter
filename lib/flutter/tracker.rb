@@ -5,7 +5,7 @@ require_relative "persistence"
 require_relative "parser"
 require "pry"
 
-module Titli
+module Flutter
   class Tracker
     attr_reader :test_mapping, :source_mapping
 
@@ -36,7 +36,7 @@ module Titli
 
       sources = @test_mapping[test]
       sources.map do |file, methods|
-        @current_source_mapping[file] ||= Titli::Parser.new(file).signatures
+        @current_source_mapping[file] ||= Flutter::Parser.new(file).signatures
         methods.map do |method|
           @source_mapping.dig(file, method) == @current_source_mapping.dig(file, method)
         end.all?
@@ -103,7 +103,7 @@ module Titli
 
     def generate_source_mapping
       @test_mapping.map { |_k, v| v.keys }.flatten.uniq.map do |file|
-        [file, @current_source_mapping[file] || Titli::Parser.new(file).signatures]
+        [file, @current_source_mapping[file] || Flutter::Parser.new(file).signatures]
       end.to_h
     end
   end

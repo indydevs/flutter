@@ -3,7 +3,7 @@
 require "fileutils"
 require "set"
 require "yaml"
-module Titli
+module Flutter
   module Persistence
     class AbstractStorage
       attr_reader :state

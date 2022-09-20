@@ -17,11 +17,11 @@ if ENV["CI"] || ENV["COVERAGE"]
 end
 
 require "rspec"
-require "titli"
+require "flutter"
 
-Titli.configure do |config|
+Flutter.configure do |config|
   config.sources << Dir.pwd
-  config.storage_options = { path: "./.titli/rspec" }
+  config.storage_options = { path: "./.flutter/rspec" }
   config.reset_storage = ENV["CI"]
   config.enabled = true
 end
