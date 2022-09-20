@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-require "rspec"
 require_relative "tracker"
-require "pry"
 
 module Flutter
   module RSpec
