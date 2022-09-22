@@ -8,9 +8,11 @@ module Flutter
     attr_reader :signatures
 
     def initialize(file)
-      code = File.open(file, "r").read
-      @ast = ::Parser::CurrentRuby.parse(code)
-      @signatures = build_signatures(@ast, nil, false)
+      if File.exist?(file)
+        code = File.open(file, "r").read
+        @ast = ::Parser::CurrentRuby.parse(code)
+        @signatures = build_signatures(@ast, nil, false)
+      end
     end
 
     def build_signatures(ast, parent, in_singleton)

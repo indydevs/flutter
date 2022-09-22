@@ -42,8 +42,13 @@ module Flutter
       module ClassMethods
         def runnable_methods
           Flutter::Minitest.filtered ||= 0
-          super.select do |test|
-            skip = Minitest.flutter_tracker.skip?("#{name}##{test}")
+          default = super()
+          default.select do |test|
+            skip = Minitest.flutter_tracker.skip?(
+              "#{name}##{test}",
+              instance_method(test).source_location[0],
+              instance_method(test).source,
+            )
             if skip
               Flutter::Minitest.filtered += 1
             end

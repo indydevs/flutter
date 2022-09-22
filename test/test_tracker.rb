@@ -9,17 +9,34 @@ class TestTracker < Minitest::Test
     Dir.mktmpdir
   end
 
-  def test_fresh_storage
-    dir = temp_dir
-    tracker = Flutter::Tracker.new(
-      ["./lib"], Flutter::Persistence::SimpleStorage, {
+  def tracker(dir)
+    Flutter::Tracker.new(
+      ["./lib", "./test"], Flutter::Persistence::SimpleStorage, {
         path: dir,
       },
     )
-    tracker.start("fubar")
-    tracker.stop
-    assert(tracker.persist!)
-    assert(tracker.skip?("fubar"))
-    assert_includes(tracker.test_mapping["fubar"].keys, "lib/flutter/tracker.rb")
+  end
+
+  def test_fresh_storage
+    dir = temp_dir
+    t = tracker(dir)
+    t.start("fubar")
+    t.stop
+    assert(t.persist!)
+    fake_file = Tempfile.new
+    assert(!t.skip?("fubar", fake_file.path, "def test;end"))
+    assert_includes(t.test_mapping["fubar"].keys, "lib/flutter/tracker.rb")
+  end
+
+  def test_skip_test_no_change
+    dir = temp_dir
+    t = tracker(dir)
+    t.start("fubar")
+    t.stop
+    fake_file = Tempfile.new
+    assert(!t.skip?("fubar", fake_file.path, "def test;end"))
+    t.persist!
+    t = tracker(dir)
+    assert(t.skip?("fubar", fake_file.path, "def test;end"))
   end
 end

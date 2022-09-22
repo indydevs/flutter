@@ -23,7 +23,11 @@ module Flutter
         return original unless Flutter.enabled
 
         original.select do |example|
-          skip = Flutter::RSpec.tracker.skip?(example.full_description)
+          skip = Flutter::RSpec.tracker.skip?(
+            example.full_description,
+            example.metadata[:absolute_file_path],
+            example.metadata[:block].source,
+          )
           Flutter::RSpec.filtered += 1 if skip
           !skip
         end

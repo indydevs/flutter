@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ["lib"]
 
+  spec.add_dependency("deep_merge")
   spec.add_dependency("dry-configurable")
   spec.add_dependency("parser")
 

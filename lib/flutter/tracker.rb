@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "deep_merge"
 require "set"
 require_relative "persistence"
 require_relative "parser"
@@ -13,6 +14,7 @@ module Flutter
       @sources = sources.map { |s| File.absolute_path(s) }
       @storage = storage_class.new(**storage_options)
       @test_mapping = @storage.state.fetch(:test_mapping, {})
+      @test_source_mapping = {}
       @source_mapping = @storage.state.fetch(:source_mapping, {})
       @current_source_mapping = {}
       @path_mapping = {}
@@ -31,8 +33,15 @@ module Flutter
       @current_tracepoint&.disable
     end
 
-    def skip?(test)
-      return false unless @test_mapping.key?(test)
+    def skip?(test, test_location, test_source)
+      test_location_rel = relative_path(test_location)
+      @test_source_mapping.fetch(test_location_rel) do
+        @test_source_mapping[test_location_rel] = {}
+      end[test] = Digest::SHA1.hexdigest(test_source)
+      return false unless
+        @test_mapping.key?(test) && @test_source_mapping[test_location_rel][test] == @source_mapping.dig(
+          test_location_rel, test,
+        )
 
       sources = @test_mapping[test]
       sources.map do |file, methods|
@@ -103,8 +112,8 @@ module Flutter
 
     def generate_source_mapping
       @test_mapping.map { |_k, v| v.keys }.flatten.uniq.map do |file|
-        [file, @current_source_mapping[file] || Flutter::Parser.new(file).signatures]
-      end.to_h
+        [file, @current_source_mapping.fetch(file) { Flutter::Parser.new(file).signatures }]
+      end.to_h.deep_merge(@test_source_mapping)
     end
   end
 end
