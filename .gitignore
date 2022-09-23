@@ -1,6 +1,6 @@
 *.gem
 *.rbc
-/.titli
+/.flutter
 /.config
 /coverage/
 /rspec_coverage/
