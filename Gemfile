@@ -12,6 +12,9 @@ group :test, :development do
   gem "guard", "~> 2.18"
   gem "rubocop", "~> 1.21"
   gem "rubocop-shopify", require: false
+  gem "rubocop-minitest", "~> 0.22.1"
+  gem "rubocop-rspec", "~> 2.13"
+  gem "rubocop-rake", "~> 0.6.0"
 end
 
 group :test do

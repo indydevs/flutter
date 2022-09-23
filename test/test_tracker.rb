@@ -24,7 +24,7 @@ class TestTracker < Minitest::Test
     t.stop
     assert(t.persist!)
     fake_file = Tempfile.new
-    assert(!t.skip?("fubar", fake_file.path, "def test;end"))
+    refute(t.skip?("fubar", fake_file.path, "def test;end"))
     assert_includes(t.test_mapping["fubar"].keys, "lib/flutter/tracker.rb")
   end
 
@@ -34,7 +34,7 @@ class TestTracker < Minitest::Test
     t.start("fubar")
     t.stop
     fake_file = Tempfile.new
-    assert(!t.skip?("fubar", fake_file.path, "def test;end"))
+    refute(t.skip?("fubar", fake_file.path, "def test;end"))
     t.persist!
     t = tracker(dir)
     assert(t.skip?("fubar", fake_file.path, "def test;end"))
