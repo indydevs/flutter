@@ -89,7 +89,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 - [x] Changes to tests themselves do not re-trigger execution
   - [x] Minispec
   - [x] RSpec
-- [ ] Changes in blocks or dynamically added functions do not re-trigger execution
+- [ ] Changes in blocks or dynamically added functions based on blocks do not re-trigger execution
 
 ### Code quality
 - [ ] Separate public/private API
