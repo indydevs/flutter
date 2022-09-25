@@ -1,0 +1,9 @@
+task default: %w[test]
+
+task :test do
+  ruby 'api/test/functional/user_test.rb'
+  ruby 'api/test/functional/event_test.rb'
+  ruby 'api/test/functional/trackable_object_test.rb'
+  ruby 'api/test/functional/property_test.rb'
+  ruby 'api/test/functional/tracking_spec_test.rb'
+end

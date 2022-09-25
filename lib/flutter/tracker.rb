@@ -21,7 +21,11 @@ module Flutter
       @method_prefixes = {}
     end
 
+    # Resets the in-memory test_mapping for each test, and stores the methods that
+    # the test calls in the in-memory test_mapping
     def start(test)
+      # Delete test from the in-memory mapping to allow each new test run
+      # to store all the functions that the test calls into
       @test_mapping.delete(test)
       @current_tracepoint = TracePoint.new(:call) do |tp|
         hit!(test, tp)

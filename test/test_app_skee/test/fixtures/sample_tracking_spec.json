@@ -1,0 +1,125 @@
+﻿[
+  {
+    "name": "Closed App",
+    "description": "Description of event A.",
+    "payload": {
+      "primary_user": {
+        "name": {
+          "data_type": "String",
+          "description": "user's name",
+          "is_nullable": false,
+          "additional_instructions": null,
+          "data_format_id": null,
+          "regex_validation": null,
+          "is_removed": null
+        }
+      },
+      "created_timestamp": {
+        "data_type": "String",
+        "description": "created_at timestamp",
+        "is_nullable": false,
+        "additional_instructions": null,
+        "data_format_id": null,
+        "regex_validation": null,
+        "is_removed": null
+      },
+      "cart": {
+        "products": [
+          {
+            "name": {
+              "data_type": "String",
+              "description": "user's name",
+              "is_nullable": false,
+              "additional_instructions": null,
+              "data_format_id": null,
+              "regex_validation": null,
+              "is_removed": null
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Opened App",
+    "description": "Description of event A.",
+    "payload": {
+      "primary_user": {
+        "name": {
+          "data_type": "String",
+          "description": "user's name",
+          "is_nullable": false,
+          "additional_instructions": null,
+          "data_format_id": null,
+          "regex_validation": null,
+          "is_removed": null
+        }
+      },
+      "created_timestamp": {
+        "data_type": "String",
+        "description": "created_at timestamp",
+        "is_nullable": false,
+        "additional_instructions": null,
+        "data_format_id": null,
+        "regex_validation": null,
+        "is_removed": null
+      },
+      "cart": {
+        "products": [
+          {
+            "name": {
+              "data_type": "String",
+              "description": "user's name",
+              "is_nullable": false,
+              "additional_instructions": null,
+              "data_format_id": null,
+              "regex_validation": null,
+              "is_removed": null
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "Launched App",
+    "description": "Description of event A.",
+    "payload": {
+      "primary_user": {
+        "name": {
+          "data_type": "String",
+          "description": "user's name",
+          "is_nullable": false,
+          "additional_instructions": null,
+          "data_format_id": null,
+          "regex_validation": null,
+          "is_removed": null
+        }
+      },
+      "created_timestamp": {
+        "data_type": "String",
+        "description": "created_at timestamp",
+        "is_nullable": false,
+        "additional_instructions": null,
+        "data_format_id": null,
+        "regex_validation": null,
+        "is_removed": null
+      },
+      "cart": {
+        "products": [
+          {
+            "name": {
+              "data_type": "String",
+              "description": "user's name",
+              "is_nullable": false,
+              "additional_instructions": null,
+              "data_format_id": null,
+              "regex_validation": null,
+              "is_removed": null
+            }
+          }
+        ]
+      }
+    }
+  }
+]
