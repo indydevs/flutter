@@ -12,7 +12,7 @@ gem 'pry'
 gem 'pg'
 # task runner for ruby
 gem 'rake'
-gem 'flutter', path: '../../'
+gem 'flutter', path: '../../../'
 
 group :development, :test do
   gem 'minitest' #, require: false
