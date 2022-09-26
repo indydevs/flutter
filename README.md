@@ -7,7 +7,11 @@
 (  \,/  )
  \_ | _/
  (_/ \_)
+
 ```
+
+Selectively run only the tests affected by changed files.
+
 ## Usage
 
 ### Minitest
@@ -74,6 +78,10 @@ guard :rspec, cmd: "rspec" do
   watch(%r{^{spec,lib}/(.*/)?([^/]+)\.rb$}) { "spec" }
 end
 ```
+
+## Related work
+
+Flutter is heavily inspired by [testmon](https://github.com/tarpas/pytest-testmon)
 
 ## Development
 
