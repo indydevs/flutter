@@ -30,7 +30,7 @@ jobs:
     - name: Run tests (rspec)
       run: bundle exec rspec
     - name: Run integration tests
-      run: bundle exec integration
+      run: bundle exec rake integration
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:
