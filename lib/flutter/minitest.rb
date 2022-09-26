@@ -46,7 +46,7 @@ module Flutter
           default.select do |test|
             skip = Minitest.flutter_tracker.skip?(
               "#{name}##{test}",
-              instance_method(test).source_location[0],
+              File.absolute_path(instance_method(test).source_location[0]),
               instance_method(test).source,
             )
             if skip
