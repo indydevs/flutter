@@ -6,3 +6,5 @@ inherit_gem:
   rubocop-shopify: rubocop.yml
 AllCops:
     NewCops: enable
+    Exclude:
+      - integration_tests/minitest/grape_app/**/*
