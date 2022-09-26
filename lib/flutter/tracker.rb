@@ -104,7 +104,11 @@ module Flutter
       return unless tracepoint_class
 
       @method_prefixes[tracepoint_class] ||= if tracepoint_class.to_s.start_with?("#<Class")
-        tracepoint_class.to_s.sub(/#<Class:(.*?)(\(.*?\))?>/, '\1::')
+        if tracepoint_class.superclass.name && tracepoint_class.to_s.include?(tracepoint_class.superclass.name)
+          "#{tracepoint_class.superclass.name}::"
+        else
+          tracepoint_class.to_s.sub(/#<Class:(.*?)(\(.*?\))?>/, '\1::')
+        end
       else
         "#{tracepoint_class.name}:"
       end
