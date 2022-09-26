@@ -1,4 +1,4 @@
-require_relative '../../../test/test_helper'
+require_relative '../../test_helper'
 require_relative 'versioned_entity_helper'
 module Skee
   module API
@@ -75,14 +75,13 @@ module Skee
 
           def test_update_trackable_object_valid_creates_new_entity
             id = '3'
-            snapshot_id = '5'
             params = {'name' => 'Cart', 'change_request_id' => '1'}
             updated_entity = update_entity_valid_creates_new_entity(id, params)
             assert_equal(
               params['name'],
               updated_entity['name']
             )
-            assert_equal(snapshot_id, updated_entity['previous_snapshot_id'])
+            assert_equal(id, updated_entity['previous_snapshot_id'])
           end
 
           def test_update_trackable_object_valid_updates_existing_snapshot_of_updated_trackable_object

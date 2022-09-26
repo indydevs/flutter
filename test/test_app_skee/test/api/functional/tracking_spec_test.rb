@@ -1,4 +1,4 @@
-require_relative '../../../test/test_helper'
+require_relative '../../test_helper'
 module Skee
   module API
     module Test

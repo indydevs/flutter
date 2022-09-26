@@ -9,6 +9,10 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList["test/**/test_*.rb"]
 end
 
+Rake::TestTask.new(:integration) do |t|
+  t.test_files = FileList["test/test_app_skee/test/**/*_test.rb"]
+end
+
 require "rubocop/rake_task"
 
 RuboCop::RakeTask.new do |t|
