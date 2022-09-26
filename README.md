@@ -96,14 +96,16 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 - [ ] Add rdoc / yard documentation
 
 ### Testing
-- [ ] Improve test coverage
-- [ ] Add integration tests
+- [x] Improve test coverage
+- [x] Add integration tests
 - [ ] Test against large / complex codebases
-
+  - [ ] Sidekiq (Minitest)
+  - [ ] Discourse (RSpec)
 ### Performance
 - [ ] Ensure only bare minimum signature calculation occurs
 - [ ] Optimize inner loop of tracking test case -> method calls
 - [ ] Evaluate alternate storage options (sqlite, leveldb..?)
+  - [x] Marshal storage
 - [ ] Evaluate using external hints for changes (for example when using with VCS)
 
 ### Usability
