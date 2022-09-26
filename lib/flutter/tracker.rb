@@ -13,9 +13,9 @@ module Flutter
     def initialize(sources, storage_class, storage_options)
       @sources = sources.map { |s| File.absolute_path(s) }
       @storage = storage_class.new(**storage_options)
-      @test_mapping = @storage.state.fetch(:test_mapping, {})
+      @test_mapping = @storage.test_mapping
       @test_source_mapping = {}
-      @source_mapping = @storage.state.fetch(:source_mapping, {})
+      @source_mapping = @storage.source_mapping
       @current_source_mapping = {}
       @path_mapping = {}
       @method_prefixes = {}

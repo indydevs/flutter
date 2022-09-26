@@ -13,7 +13,7 @@ module Flutter
         other.class_eval do
           setting(:enabled, default: false, reader: true)
           setting(:sources, default: Set.new([Dir.pwd]))
-          setting(:storage_class, default: Flutter::Persistence::SimpleStorage)
+          setting(:storage_class, default: Flutter::Persistence::Yaml)
           setting(:storage_options, default: { path: "./.flutter" })
           setting(:reset_storage, default: false)
         end

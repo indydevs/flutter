@@ -28,7 +28,7 @@
   Flutter.configure do |config|
     config.enabled = true
     config.sources = ["./app", "./test"] # The default is Dir.pwd
-    config.storage_class = Flutter::Persistence::SimpleStorage # This is the default
+    config.storage_class = Flutter::Persistence::Yaml # This is the default
     config.storage_options = {path: "./flutter"} # This is the default
     config.reset_storage = false # This is the default
   end
@@ -61,7 +61,7 @@ end
   Flutter.configure do |config|
     config.enabled = true
     config.sources = ["./app", "./spec"] # The default is Dir.pwd
-    config.storage_class = Flutter::Persistence::SimpleStorage # This is the default
+    config.storage_class = Flutter::Persistence::Yaml # This is the default
     config.storage_options = {path: "./flutter"} # This is the default
     config.reset_storage = false # This is the default
   end
@@ -89,7 +89,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 - [x] Changes to tests themselves do not re-trigger execution
   - [x] Minispec
   - [x] RSpec
-- [ ] Changes in blocks or dynamically added functions do not re-trigger execution
+- [ ] Changes in blocks or dynamically added functions based on blocks do not re-trigger execution
 
 ### Code quality
 - [ ] Separate public/private API
