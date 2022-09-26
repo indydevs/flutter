@@ -29,7 +29,7 @@
     config.enabled = true
     config.sources = ["./app", "./test"] # The default is Dir.pwd
     config.storage_class = Flutter::Persistence::Yaml # This is the default
-    config.storage_options = {path: "./flutter"} # This is the default
+    config.storage_options = {path: "./.flutter"} # This is the default
     config.reset_storage = false # This is the default
   end
   ```
@@ -62,7 +62,7 @@ end
     config.enabled = true
     config.sources = ["./app", "./spec"] # The default is Dir.pwd
     config.storage_class = Flutter::Persistence::Yaml # This is the default
-    config.storage_options = {path: "./flutter"} # This is the default
+    config.storage_options = {path: "./.flutter"} # This is the default
     config.reset_storage = false # This is the default
   end
   ```
