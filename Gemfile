@@ -16,11 +16,11 @@ group :test, :development do
   gem "rubocop-rspec", "~> 2.13"
   gem "rubocop-rake", "~> 0.6.0"
   # For integration test app
-  gem 'dotenv'
-  gem 'grape'
-  gem 'grape-entity'
-  gem 'grape-swagger'
-  gem 'rack-test', require: 'rack/test'
+  gem "dotenv"
+  gem "grape"
+  gem "grape-entity"
+  gem "grape-swagger"
+  gem "rack-test", require: "rack/test"
 end
 
 group :test do
