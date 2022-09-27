@@ -9,7 +9,8 @@ module Flutter
 
       def tracker
         @tracker ||= Flutter::Tracker.new(
-          Flutter.config.sources, Flutter.config.storage_class, Flutter.config.storage_options,
+          Flutter.config.sources, Flutter.config.exclusions,
+          Flutter.config.storage_class, Flutter.config.storage_options,
         )
       end
     end

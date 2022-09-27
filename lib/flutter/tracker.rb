@@ -10,8 +10,9 @@ module Flutter
   class Tracker
     attr_reader :test_mapping, :source_mapping
 
-    def initialize(sources, storage_class, storage_options)
+    def initialize(sources, exclusions, storage_class, storage_options)
       @sources = sources.map { |s| File.absolute_path(s) }
+      @exclusions = exclusions.map { |s| File.absolute_path(s) }
       @storage = storage_class.new(**storage_options)
       @test_mapping = @storage.test_mapping
       @test_source_mapping = {}
@@ -19,6 +20,7 @@ module Flutter
       @current_source_mapping = {}
       @path_mapping = {}
       @method_prefixes = {}
+      @tracked_files = {}
     end
 
     # Resets the in-memory test_mapping for each test, and stores the methods that
@@ -115,7 +117,11 @@ module Flutter
     end
 
     def tracked?(file, _method)
-      @sources.any?(->(source) { file.start_with?(source) })
+      @tracked_files.fetch(file) do
+        @sources.any?(->(source) { File.fnmatch?(source, file) }) && !@exclusions.any?(->(exclusion) {
+          File.fnmatch?(exclusion, file)
+        })
+      end
     end
 
     def generate_source_mapping

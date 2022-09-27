@@ -31,10 +31,16 @@ Selectively run only the tests affected by changed files.
   ```ruby
   Flutter.configure do |config|
     config.enabled = true
-    config.sources = ["./app", "./test"] # The default is Dir.pwd
-    config.storage_class = Flutter::Persistence::Marshal # This is the default
-    config.storage_options = {path: "./.flutter"} # This is the default
-    config.reset_storage = false # This is the default
+    # Paths to consider when tracking test -> source mappings. Default: Dir.pwd/*
+    config.sources = ["./app/*", "./test/*"]
+    # Paths to ignore for tracking test -> source. Default: ./vendor
+    config.exclusions = ["./vendor/*"]
+    # Storage type. Default: Flutter::Persistence::Marshal
+    config.storage_class = Flutter::Persistence::Marshal
+    # Where to store the state. Default: ./.flutter
+    config.storage_options = {path: "./.flutter"}
+    # Whether to reset the stored state before the test run. Default: false
+    config.reset_storage = false
   end
   ```
 
@@ -64,10 +70,16 @@ end
   ```ruby
   Flutter.configure do |config|
     config.enabled = true
-    config.sources = ["./app", "./spec"] # The default is Dir.pwd
-    config.storage_class = Flutter::Persistence::Marshal # This is the default
-    config.storage_options = {path: "./.flutter"} # This is the default
-    config.reset_storage = false # This is the default
+    # Paths to consider when tracking test -> source mappings. Default: Dir.pwd/*
+    config.sources = ["./app/*", "./test/*"]
+    # Paths to ignore for tracking test -> source. Default: ./vendor
+    config.exclusions = ["./vendor/*"]
+    # Storage type. Default: Flutter::Persistence::Marshal
+    config.storage_class = Flutter::Persistence::Marshal
+    # Where to store the state. Default: ./.flutter
+    config.storage_options = {path: "./.flutter"}
+    # Whether to reset the stored state before the test run. Default: false
+    config.reset_storage = false
   end
   ```
 #### With guard

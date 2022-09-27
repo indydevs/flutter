@@ -12,7 +12,8 @@ module Flutter
         other.extend(Dry::Configurable)
         other.class_eval do
           setting(:enabled, default: false, reader: true)
-          setting(:sources, default: Set.new([Dir.pwd]))
+          setting(:sources, default: Set.new(["#{Dir.pwd}/*"]))
+          setting(:exclusions, default: Set.new(["./vendor/*"]))
           setting(:storage_class, default: Flutter::Persistence::Marshal)
           setting(:storage_options, default: { path: "./.flutter" })
           setting(:reset_storage, default: false)

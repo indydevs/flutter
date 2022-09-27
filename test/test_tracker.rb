@@ -11,7 +11,7 @@ class TestTracker < Minitest::Test
 
   def tracker(dir)
     Flutter::Tracker.new(
-      ["./lib", "./test"], Flutter::Persistence::Yaml, {
+      ["./lib/*", "./test/*"], [], Flutter::Persistence::Yaml, {
         path: dir,
       },
     )
