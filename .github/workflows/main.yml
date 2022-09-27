@@ -34,3 +34,8 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: ./coverage/coverage.xml,./rspec_coverage/coverage.xml
+    - name: Upload flutter state
+      uses: actions/upload-artifact@v3
+      with:
+        name: flutter-state
+        path: ./.flutter
