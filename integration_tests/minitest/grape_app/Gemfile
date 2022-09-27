@@ -7,9 +7,6 @@ gem 'grape-entity'
 gem 'grape-swagger'
 # web server
 gem 'puma'
-# debugging
-gem 'pry'
-gem 'pg'
 # task runner for ruby
 gem 'rake'
 gem 'flutter', path: '../../../'
