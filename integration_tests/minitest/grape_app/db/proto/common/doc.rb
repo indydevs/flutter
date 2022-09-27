@@ -8,7 +8,7 @@ module Skee
             @doc = doc
             generate_attribute_readers(doc)
           end
-  
+
           def generate_attribute_readers(doc)
             doc.to_h.each do |key, value|
               define_singleton_method(key) { value }
@@ -54,7 +54,7 @@ module Skee
           end
 
           def self.create(fields)
-            new_id = rand.to_s[2..4]
+            new_id = rand(0..2**32)
             new_doc = OpenStruct.new(
               id: new_id
             )
@@ -64,18 +64,18 @@ module Skee
             all << new_doc
             find(new_doc.id)
           end
-  
+
           def update(fields)
             fields.each do |key, value|
               @doc[key] = value
             end
             @doc
           end
-  
+
           def delete
             self.class.all.delete(@doc)
           end
-  
+
           def self.delete_all
             @all_docs = []
           end

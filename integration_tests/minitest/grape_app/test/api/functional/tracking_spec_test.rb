@@ -4,8 +4,6 @@ module Skee
     module Test
       module Functional
         class TrackingSpecTest < MiniTest::Test
-          i_suck_and_my_tests_are_order_dependent!
-
           include Rack::Test::Methods
 
           def app
