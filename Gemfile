@@ -9,6 +9,7 @@ gem "rake", "~> 13.0"
 group :test, :development do
   gem "pry", "~> 0.14.1"
   gem "overcommit", "~> 0.59.1"
+  gem "gem-release", "~> 2.2"
   gem "guard", "~> 2.18"
   gem "rubocop", "~> 1.21"
   gem "rubocop-shopify", require: false
