@@ -29,9 +29,9 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ["lib"]
 
-  spec.add_dependency("deep_merge")
-  spec.add_dependency("dry-configurable")
-  spec.add_dependency("parser")
+  spec.add_dependency("deep_merge", " ~> 1.2")
+  spec.add_dependency("dry-configurable", "~> 0.15")
+  spec.add_dependency("parser", "~> 3.1")
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
