@@ -1,4 +1,5 @@
-# Flutter
+# Flutter: Intelligent test selection based on incremental code changes
+
 [![CI](https://github.com/indydevs/flutter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/indydevs/flutter/actions/workflows/main.yml)
 [![codecov](https://codecov.io/github/indydevs/flutter/branch/main/graph/badge.svg?token=XANF37D9C1)](https://codecov.io/github/indydevs/flutter)
 
@@ -9,8 +10,22 @@
  (_/ \_)
 
 ```
+Flutter plugs in to your [RSpec](https://rspec.info/) or [Minitest](https://github.com/minitest/minitest) test suites and helps you run only the tests that exercise the
+code you have changed since the last run.
 
-Selectively run only the tests affected by changed files.
+It can be used in local development as a live incremental test runner in
+combination with [Guard](https://github.com/guard/guard) (See examples for [minitest](#with-guard) and [rspec](#with-guard-1) respectively)
+or in continuous integration environments to only run the subset of tests affected by a pull request or changeset
+(See [CI Recipes](#configuring-flutter-in-continuous-integration)).
+
+## How?
+Flutter tracks each method call within the context of each test case in your test suite and persists this mapping along with
+a signature for all the methods that were exercised. On subsequent runs Flutter intercepts test enumeration and skips any test if
+all the following conditions are true:
+
+- The test was seen before
+- The source of the test has not changed
+- All the methods exercised in the last recorded run have no changes in their source
 
 ## Usage
 
@@ -19,9 +34,9 @@ Selectively run only the tests affected by changed files.
 - Add the gem as a dependency
 
   ```ruby
-  gem "flutter", path: "$path_to/flutter"
+  gem "flutter"
   ```
-- Include the plugin in your `test_helper.rb`:
+- Include it in your `test_helper.rb`:
 
   ```ruby
   require 'flutter'
@@ -58,7 +73,7 @@ end
 - Add the gem as a dependency:
 
   ```ruby
-  gem "flutter", path: "$path_to/flutter"
+  gem "flutter"
   ```
 - Include the plugin in your `spec_helper.rb`:
 
@@ -90,6 +105,8 @@ guard :rspec, cmd: "rspec" do
   watch(%r{^{spec,lib}/(.*/)?([^/]+)\.rb$}) { "spec" }
 end
 ```
+## Configuring flutter in continuous integration
+**TODO**
 
 ## Related work
 
@@ -102,36 +119,6 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 This project uses [overcommit](https://github.com/sds/overcommit) to enforce standards. Enable the precommit hooks in your local checkout by running: `overcommit --sign`
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## TODO
-
-### Functionality
-- [x] Changes to tests themselves do not re-trigger execution
-  - [x] Minispec
-  - [x] RSpec
-- [ ] Changes in blocks or dynamically added functions based on blocks do not re-trigger execution
-
-### Code quality
-- [ ] Separate public/private API
-- [ ] Add rdoc / yard documentation
-
-### Testing
-- [x] Improve test coverage
-- [x] Add integration tests
-- [ ] Test against large / complex codebases
-  - [ ] Sidekiq (Minitest)
-  - [ ] Discourse (RSpec)
-### Performance
-- [ ] Ensure only bare minimum signature calculation occurs
-- [ ] Optimize inner loop of tracking test case -> method calls
-- [ ] Evaluate alternate storage options (sqlite, leveldb..?)
-  - [x] Marshal storage
-- [ ] Evaluate using external hints for changes (for example when using with VCS)
-
-### Usability
-- [ ] Quick start guide
-- [x] Recipes for guard
-- [ ] Recipes for CI
 
 ## Contributing
 
