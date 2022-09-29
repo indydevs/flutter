@@ -13,7 +13,7 @@ class TestTracker < Minitest::Test
     Flutter::Tracker.new(
       ["./lib/*", "./test/*"], [], Flutter::Persistence::Yaml, {
         path: dir,
-      },
+      }
     )
   end
 

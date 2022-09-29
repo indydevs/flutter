@@ -46,7 +46,7 @@ module Flutter
       end[test] = Digest::SHA1.hexdigest(test_source)
       return false unless
         @test_mapping.key?(test) && @test_source_mapping[test_location_rel][test] == @source_mapping.dig(
-          test_location_rel, test,
+          test_location_rel, test
         )
 
       sources = @test_mapping[test]
