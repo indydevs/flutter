@@ -15,12 +15,10 @@ end
 
 require "rubocop/rake_task"
 
-RuboCop::RakeTask.new do |t|
-  t.options << "-A"
-end
+RuboCop::RakeTask.new
 
 require "rspec/core/rake_task"
 RSpec::Core::RakeTask.new(:spec)
 
 task test: [:unit, :spec]
-task default: [:test, :spec, :rubocop]
+task default: [:test, :spec, "rubocop:autocorrect_all"]
