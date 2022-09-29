@@ -119,7 +119,9 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 This project uses [overcommit](https://github.com/sds/overcommit) to enforce standards. Enable the precommit hooks in your local checkout by running: `overcommit --sign`
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number by running `gem bump`,
+then move the `Unreleased` entries in the [CHANGELOG](./CHANGELOG.md) to the new version and commit that.
+Finally tag and release the gem with `gem tag` and `gem release`
 
 ## Contributing
 
