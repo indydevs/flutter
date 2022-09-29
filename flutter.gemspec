@@ -8,8 +8,10 @@ Gem::Specification.new do |spec|
   spec.authors = ["Ali-Akber Saifee", "Ankita Gupta"]
   spec.email = ["ali@indydevs.org", "ankita@indydevs.org"]
 
-  spec.summary = "Selectively run specs based on changed files"
-  spec.description = "Selectively run specs based on changed files"
+  spec.summary = "Intelligent test selection based on incremental code changes"
+  spec.description = 'Flutter plugs in to your RSpec or Minitest test suites
+  and helps you run only the tests that exercise the code you have changed since the last run
+  '
   spec.homepage = "https://github.com/indydevs/flutter"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
