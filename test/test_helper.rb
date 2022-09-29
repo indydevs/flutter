@@ -4,6 +4,7 @@ $LOAD_PATH.unshift(File.expand_path("../lib", __dir__))
 if ENV["CI"] || ENV["COVERAGE"]
   require "simplecov"
   SimpleCov.start do
+    add_filter %r{^/test/}
     if ENV["CI"]
       require "simplecov-cobertura"
       SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter

@@ -3,6 +3,7 @@
 if ENV["CI"] || ENV["COVERAGE"]
   require "simplecov"
   SimpleCov.start do
+    add_filter %r{^/spec/}
     if ENV["CI"]
       require "simplecov-cobertura"
       SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
