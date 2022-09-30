@@ -7,9 +7,20 @@ require_relative "parser"
 require "pry"
 
 module Flutter
+  # @attr [Hash<String, Hash<String, Set<String>>>] test_mapping Mapping of tests to
+  #  files -> callable_ids
+  # @attr [Hash<String, Hash<String, String>>] source_mapping Mapping of
+  #  source files -> callable_id -> signature
+  # @attr [Persistence::AbstractStorage] storage the storage instance used for
+  #  persisting the state of the tracker
   class Tracker
-    attr_reader :test_mapping, :source_mapping
+    attr_reader :test_mapping, :source_mapping, :storage
 
+    # @param [Array<String>] sources
+    # @param [Array<String>] exclusions
+    # @param [Class<Flutter::Persistence::AbstractStorage>] storage_class
+    # @param [Hash] storage_options Additionally options that should be passed
+    #  to the +storage_class+ constructor
     def initialize(sources, exclusions, storage_class, storage_options)
       @sources = sources.map { |s| File.absolute_path(s) }
       @exclusions = exclusions.map { |s| File.absolute_path(s) }
@@ -23,8 +34,8 @@ module Flutter
       @tracked_files = {}
     end
 
-    # Resets the in-memory test_mapping for each test, and stores the methods that
-    # the test calls in the in-memory test_mapping
+    # Starts tracking calls made by +test+
+    # @param [String] test A unique identifier for the test
     def start(test)
       # Delete test from the in-memory mapping to allow each new test run
       # to store all the functions that the test calls into
@@ -35,10 +46,24 @@ module Flutter
       @current_tracepoint&.enable
     end
 
+    # End tracking (should be called after a call to {#start})
     def stop
       @current_tracepoint&.disable
     end
 
+    ##
+    # Decides if a test should be skipped based on *all* of the following
+    # criteria being met:
+    #
+    # 1. Test was seen before
+    # 2. Test sources have not changed since the last time it was executed
+    # 3. All the callables triggered within the scope of this test have no
+    #    changes in their source since the last time this test was executed
+    #
+    # @param [String] test A unique identifier for the test
+    # @param [String] test_location The absolute path to the source file containing the test
+    # @param [String] test_source The source code of the test itself
+    # @return [TrueClass, FalseClass] If the test should be skipped
     def skip?(test, test_location, test_source)
       test_location_rel = relative_path(test_location)
       @test_source_mapping.fetch(test_location_rel) do
@@ -58,12 +83,20 @@ module Flutter
       end.all?
     end
 
+    ##
+    # Persist the state of the tracker to the storage
+    # specified by {#storage}
+    # @return [void]
     def persist!
       @storage.update_test_mapping!(@test_mapping)
       @storage.update_source_mapping!(generate_source_mapping)
       @storage.persist!
     end
 
+    ##
+    # Reset the state of the tracker and the storage
+    # that it was configured with
+    # @return [void]
     def reset!
       @storage.clear!
       @source_mapping.clear
@@ -73,8 +106,6 @@ module Flutter
     def to_s
       @storage.to_s
     end
-
-    attr_reader :mapping
 
     private
 
@@ -116,6 +147,13 @@ module Flutter
       end
     end
 
+    ##
+    # Check if a file pair should be tracked or not based on the
+    # +sources+ and +exclusions+ lists provided when initializing
+    # the instance
+    #
+    # @param [String] file
+    # @param [Symbol] _method
     def tracked?(file, _method)
       @tracked_files.fetch(file) do
         @sources.any?(->(source) { File.fnmatch?(source, file) }) && !@exclusions.any?(->(exclusion) {
@@ -124,6 +162,10 @@ module Flutter
       end
     end
 
+    ##
+    # Generates a mapping of
+    #
+    # @return [Hash<String, Hash<String, Hash<String, String>>>]
     def generate_source_mapping
       @test_mapping.map { |_k, v| v.keys }.flatten.uniq.map do |file|
         [file, @current_source_mapping.fetch(file) { Flutter::Parser.new(file).signatures }]
