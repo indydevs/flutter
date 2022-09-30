@@ -5,7 +5,7 @@ require_relative "tracker"
 module Flutter
   module RSpec
     class << self
-      attr_accessor :filtered
+      attr_accessor :filtered, :total
 
       def tracker
         @tracker ||= Flutter::Tracker.new(
@@ -18,19 +18,19 @@ module Flutter
     module ClassMethods
       def filtered_examples
         Flutter::RSpec.filtered ||= 0
+        Flutter::RSpec.total ||= 0
         Flutter::RSpec.tracker.reset! if Flutter.enabled && Flutter.config.reset_storage
 
         original = super
+        Flutter::RSpec.total += original.length
         return original unless Flutter.enabled
 
         original.select do |example|
-          skip = example.metadata[:block] && Flutter::RSpec.tracker.skip?(
+          !(example.metadata[:block] && Flutter::RSpec.tracker.skip?(
             example.full_description,
             example.metadata[:absolute_file_path],
             example.metadata[:block].source,
-          )
-          Flutter::RSpec.filtered += 1 if skip
-          !skip
+          ).tap { |skip| Flutter::RSpec.filtered += 1 if skip })
         end
       end
     end
@@ -58,7 +58,7 @@ if defined?(RSpec.configure)
     config.after(:suite) do
       if Flutter.enabled
         $stdout.puts
-        $stdout.puts "Flutter filtered out #{Flutter::RSpec.filtered} examples"
+        $stdout.puts "Flutter filtered #{Flutter::RSpec.filtered} / #{Flutter::RSpec.total} examples"
         Flutter::RSpec.tracker.persist!
       end
     end

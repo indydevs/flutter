@@ -12,4 +12,9 @@ describe Flutter::Parser do
     p = Flutter::Parser.new(parse_fixture("simple.rb"))
     assert_empty(["Simple::A::fu", "Simple::A:bar", "Simple::A::baz"] - p.signatures.keys)
   end
+
+  it "generates signatures for inherited methods" do
+    p = Flutter::Parser.new(parse_fixture("simple.rb"))
+    assert_empty(["Simple::A::ffu", "Simple::A:bbar"] - p.signatures.keys)
+  end
 end

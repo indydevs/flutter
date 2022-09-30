@@ -8,6 +8,11 @@ module Flutter
   class Parser
     attr_reader :signatures
 
+    @method_cache = {}
+    class << self
+      attr_reader :method_cache
+    end
+
     def initialize(file)
       @signatures = {}
       @targets = Set.new
@@ -49,23 +54,17 @@ module Flutter
       require_relative @file
       @targets.each do |container|
         instance = Kernel.const_get(container)
-        class_methods = (
-          instance.methods - Object.methods
-        ) + (
-          instance.private_methods - Object.private_methods
-        )
-        instance_methods = (
-          instance.instance_methods - Object.instance_methods
-        ) + (
-          instance.private_instance_methods - Object.private_instance_methods
-        )
+        class_methods = instance.methods + instance.private_methods
+        instance_methods = instance.instance_methods + instance.private_instance_methods
 
         @signatures.merge!(class_methods.map do |method|
-          ["#{container}::#{method}", source_hash(instance.method(method))]
-        end.to_h)
+          hash = source_hash(instance.method(method))
+          ["#{container}::#{method}", hash] if hash
+        end.compact.to_h)
         @signatures.merge!(instance_methods.map do |method|
-          ["#{container}:#{method}", source_hash(instance.instance_method(method))]
-        end.to_h)
+          hash = source_hash(instance.instance_method(method))
+          ["#{container}:#{method}", hash] if hash
+        end.compact.to_h)
       rescue NameError
         $stderr.puts "failed to load #{container} in #{@file}"
       end
@@ -74,9 +73,12 @@ module Flutter
     end
 
     def source_hash(callable)
-      Digest::SHA1.hexdigest(callable.source)
+      return unless callable.source_location
+
+      sep = callable.is_a?(UnboundMethod) ? ":" : "::"
+      Parser.method_cache["#{callable.owner}#{sep}#{callable.name}"] ||= Digest::SHA1.hexdigest(callable.source)
     rescue MethodSource::SourceNotFoundError
-      "<no-source>"
+      nil
     end
   end
 end

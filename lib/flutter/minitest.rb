@@ -10,7 +10,7 @@ end
 module Flutter
   module Minitest
     class << self
-      attr_accessor :filtered
+      attr_accessor :filtered, :total
 
       def flutter_tracker
         @tracker ||= Flutter::Tracker.new(
@@ -31,7 +31,7 @@ module Flutter
           return unless ::Flutter.enabled
 
           Flutter::Minitest.flutter_tracker.persist!
-          $stdout.puts "Flutter filtered out #{Flutter::Minitest.filtered} tests"
+          $stdout.puts "Flutter filtered #{Flutter::Minitest.filtered} / #{Flutter::Minitest.total} tests"
           if @verbose
             $stdout.puts "Persisted flutter #{Flutter::Minitest.flutter_tracker}"
           end
@@ -43,17 +43,15 @@ module Flutter
       module ClassMethods
         def runnable_methods
           Flutter::Minitest.filtered ||= 0
+          Flutter::Minitest.total ||= 0
           default = super()
+          Flutter::Minitest.total += default.length
           default.select do |test|
-            skip = Minitest.flutter_tracker.skip?(
+            !Minitest.flutter_tracker.skip?(
               "#{name}##{test}",
               File.absolute_path(instance_method(test).source_location[0]),
               instance_method(test).source,
-            )
-            if skip
-              Flutter::Minitest.filtered += 1
-            end
-            !skip
+            ).tap { |skip| Flutter::Minitest.filtered += 1 if skip }
           end
         end
       end

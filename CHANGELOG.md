@@ -5,13 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+  - Ensure all methods (including inherited ones) are considered when calculating signatures for a class or module.
+
 ## [0.1.0.pre.3]
 ### Added
   - Improved documentation for Tracker
-  - Improved documentation for Persistance classes
+  - Improved documentation for Persistence classes
 
 ### Changed
   - Pinned dependencies to known working minimum versions
+
 
 ## [0.1.0.pre.2]
 ### Added
