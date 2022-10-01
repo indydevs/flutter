@@ -112,11 +112,12 @@ Flutter can be used in continuous integration environments to speed up the turn
 around time from running tests by only running tests affected by the changes
 in a pull request.
 
-The following example uses github actions to:
+### Github Actions
+The following example workflow with github actions does the following:
 - Always run all tests on the `main` branch
 - Only run tests affected by the "current" commit for CI workflows triggered by a `push` event on other branches
 - If the CI workflow is triggered due to a `pull_request` event, run all tests affected by all commits in the branch
-  (by comparing against the branch point of the pull request branch)
+  (by comparing against the branch point of the pull request)
 
 ```yaml
     # Get the commit where this branch diverges from origin/main
@@ -128,7 +129,7 @@ The following example uses github actions to:
     # Use the always-upload-cache action to:
     #  - Restore the flutter state from cache from either the branch point (if it was set in the previous step)
     #    or the last run in the current branch
-    #  - After the run cache the flutter state using the latest commit hash as the hash key
+    #  - After the run cache the flutter state using the current commit hash as the hash key
     - name: Setup flutter state
       id: flutter-state
       uses: pat-s/always-upload-cache@v2.1.5
