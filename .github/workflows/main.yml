@@ -38,6 +38,40 @@ jobs:
       with:
         name: flutter-state
         path: ./.flutter
+  flutter:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['2.7', '3.0', '3.1']
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Retrieve cache keys
+      run: |
+        echo "::set-output name=PREVIOUS_COMMIT::$(git rev-parse HEAD~1)"
+      id: cache_keys
+    - name: Restore flutter state
+      id: flutter-state
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-flutter-state
+      with:
+        path: .flutter
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ steps.cache_keys.outputs.PREVIOUS_COMMIT }}
+    - name: Run tests (minitest+rspec)
+      env:
+        TESTOPTS: '-v'
+      run: |
+        git log --oneline HEAD..${{ github.sha }}
+        bundle exec rake test
   release:
     needs: [test]
     runs-on: ubuntu-latest
