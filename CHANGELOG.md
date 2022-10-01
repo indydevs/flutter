@@ -5,25 +5,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## 0.2.0
 ### Added
-  - Release workflow tasks & github actions integration
-  - CI integration for incremental tests in branches/pull requests
-  - CI Recipe in README
+- CI Recipe in README
+- CI integration for incremental tests in branches/pull requests
+- Release workflow tasks & github actions integration
+
 ### Fixed
-  - Ensure all methods (including inherited ones) are considered when calculating signatures for a class or module.
-  - Fix calculation of total / filtered examples for rspec integration
+- Ensure all methods (including inherited ones) are considered when calculating signatures for a class or module.
+- Fix calculation of total / filtered examples for rspec integration
 
 ## 0.1.0.pre.3
 ### Added
-  - Improved documentation for Tracker
-  - Improved documentation for Persistence classes
+- Improved documentation for Persistence classes
+- Improved documentation for Tracker
 
 ### Changed
-  - Pinned dependencies to known working minimum versions
-
+- Pinned dependencies to known working minimum versions
 
 ## 0.1.0.pre.2
 ### Added
-  - Minitest integration
-  - RSpec integration
+- Minitest integration
+- RSpec integration
 
