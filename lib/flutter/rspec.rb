@@ -17,12 +17,12 @@ module Flutter
 
     module ClassMethods
       def filtered_examples
-        Flutter::RSpec.filtered ||= 0
-        Flutter::RSpec.total ||= 0
+        Flutter::RSpec.filtered ||= Set.new
+        Flutter::RSpec.total ||= Set.new
         Flutter::RSpec.tracker.reset! if Flutter.enabled && Flutter.config.reset_storage
 
         original = super
-        Flutter::RSpec.total += original.length
+        Flutter::RSpec.total.merge(original)
         return original unless Flutter.enabled
 
         original.select do |example|
@@ -30,7 +30,7 @@ module Flutter
             example.full_description,
             example.metadata[:absolute_file_path],
             example.metadata[:block].source,
-          ).tap { |skip| Flutter::RSpec.filtered += 1 if skip })
+          ).tap { |skip| Flutter::RSpec.filtered << example if skip })
         end
       end
     end
@@ -58,7 +58,7 @@ if defined?(RSpec.configure)
     config.after(:suite) do
       if Flutter.enabled
         $stdout.puts
-        $stdout.puts "Flutter filtered #{Flutter::RSpec.filtered} / #{Flutter::RSpec.total} examples"
+        $stdout.puts "Flutter filtered #{Flutter::RSpec.filtered.length} / #{Flutter::RSpec.total.length} examples"
         Flutter::RSpec.tracker.persist!
       end
     end
