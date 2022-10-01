@@ -22,6 +22,7 @@ module Flutter
     # @param [Hash] storage_options Additionally options that should be passed
     #  to the +storage_class+ constructor
     def initialize(sources, exclusions, storage_class, storage_options)
+      # Fake change to tracker
       @sources = sources.map { |s| File.absolute_path(s) }
       @exclusions = exclusions.map { |s| File.absolute_path(s) }
       @storage = storage_class.new(**storage_options)
