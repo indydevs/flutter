@@ -107,7 +107,54 @@ guard :rspec, cmd: "rspec" do
 end
 ```
 ## Configuring flutter in continuous integration
-**TODO**
+
+Flutter can be used in continuous integration environments to speed up the turn
+around time from running tests by only running tests affected by the changes
+in a pull request.
+
+The following example uses github actions to:
+- Always run all tests on the `main` branch
+- Only run tests affected by the "current" commit for CI workflows triggered by a `push` event on other branches
+- If the CI workflow is triggered due to a `pull_request` event, run all tests affected by all commits in the branch
+  (by comparing against the branch point of the pull request branch)
+
+```yaml
+    # Get the commit where this branch diverges from origin/main
+    - name: Retrieve branch point
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "::set-output name=KEY::$(diff -u <(git rev-list --first-parent origin/main) <(git rev-list --first-parent HEAD) | sed -ne 's/^ //p' | head -1)"
+      id: cache_keys
+    # Use the always-upload-cache action to:
+    #  - Restore the flutter state from cache from either the branch point (if it was set in the previous step)
+    #    or the last run in the current branch
+    #  - After the run cache the flutter state using the latest commit hash as the hash key
+    - name: Setup flutter state
+      id: flutter-state
+      uses: pat-s/always-upload-cache@v2.1.5
+      env:
+        cache-name: cache-flutter-state
+      with:
+        path: .flutter
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ steps.cache_keys.outputs.KEY }}
+    # If this is a push event on the main branch, clear the flutter state
+    # so that all tests are run and a full state is cached on the main branch
+    - name: Clear flutter state
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
+      run: rm -rf .flutter
+```
+> **Note**
+> The exact CI configuration would ofcourse depend on your workflow and confidence in selectively
+> running tests for pull requests.
+
+> **Warning**
+> Selectively running tests in a pull request would show a drop in coverage if you are collecting
+> and/or using code coverage as a "Check". One way to make Flutter work hand in hand with code
+> coverage checks is to only validate that the diff in the pull request has a 100% coverage. For
+> example with [codecov](https://docs.codecov.com/docs/commit-status#section-project-status) this can be
+> achieved by only enabling the `project` status for the main branch and `patch` status otherwise.
 
 ## Related work
 

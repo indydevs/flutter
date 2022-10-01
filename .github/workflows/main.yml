@@ -102,4 +102,3 @@ jobs:
           artifacts: "*.gem"
           bodyFile: release_notes.md
           token: ${{ secrets.GITHUB_TOKEN }}
-
