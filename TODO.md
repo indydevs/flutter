@@ -8,7 +8,7 @@
 
 ## Code quality
 - [ ] Separate public/private API
-- [ ] Add rdoc / yard documentation
+- [x] Add rdoc / yard documentation
 
 ## Testing
 - [x] Improve test coverage
@@ -26,5 +26,5 @@
 ## Usability
 - [x] Quick start guide
 - [x] Recipes for guard
-- [ ] Recipes for CI
+- [x] Recipes for CI
 
