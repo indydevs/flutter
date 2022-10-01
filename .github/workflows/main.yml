@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.7', '3.0', '3.1']
+        ruby-version: ['2.7']
     env:
       CI: true
     steps:
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.7', '3.0', '3.1']
+        ruby-version: ['2.7']
     steps:
     - uses: actions/checkout@v3
       with:
@@ -56,9 +56,9 @@ jobs:
       run: |
         echo "::set-output name=PREVIOUS_COMMIT::$(git rev-parse HEAD~1)"
       id: cache_keys
-    - name: Restore flutter state
+    - name: Setup flutter state
       id: flutter-state
-      uses: actions/cache@v3
+      uses: pat-s/always-upload-cache@v2.1.5
       env:
         cache-name: cache-flutter-state
       with:
@@ -70,7 +70,7 @@ jobs:
       env:
         TESTOPTS: '-v'
       run: |
-        git log --oneline HEAD..${{ github.sha }}
+        git log --oneline HEAD..${{ steps.cache_keys.outputs.PREVIOUS_COMMIT }}
         bundle exec rake test
   release:
     needs: [test]

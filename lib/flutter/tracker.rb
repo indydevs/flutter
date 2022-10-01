@@ -98,6 +98,7 @@ module Flutter
     # that it was configured with
     # @return [void]
     def reset!
+      $stdout.puts "Resetting flutter: #{@storage}"
       @storage.clear!
       @source_mapping.clear
       @test_mapping.clear
