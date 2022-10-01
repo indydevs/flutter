@@ -15,6 +15,10 @@ module Flutter
 
     def initialize(file)
       # Fake change to parser
+      # Fake introduction of uncovered code
+      if 1 == 2
+        # nothing
+      end
       @signatures = {}
       @targets = Set.new
       if File.exist?(file)
