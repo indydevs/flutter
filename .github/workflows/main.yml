@@ -52,9 +52,10 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Retrieve cache keys
+    - name: Retrieve branch point
+      if: github.event_name == 'pull_request'
       run: |
-        echo "::set-output name=BRANCH_POINT::$(diff -u <(git rev-list --first-parent origin/main) <(git rev-list --first-parent HEAD) | sed -ne 's/^ //p' | head -1)"
+        echo "::set-output name=KEY::$(diff -u <(git rev-list --first-parent origin/main) <(git rev-list --first-parent HEAD) | sed -ne 's/^ //p' | head -1)"
       id: cache_keys
     - name: Setup flutter state
       id: flutter-state
@@ -65,13 +66,15 @@ jobs:
         path: .flutter
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ github.sha }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ steps.cache_keys.outputs.BRANCH_POINT }}
-          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-
+          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ steps.cache_keys.outputs.KEY }}
+    - name: Clear flutter state
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
+      run: rm -rf .flutter
     - name: Run tests (minitest+rspec)
       env:
         TESTOPTS: '-v'
       run: |
-        git log --oneline HEAD..${{ steps.cache_keys.outputs.BRANCH_POINT }}
+        git log --oneline HEAD..${{ steps.cache_keys.outputs.KEY }}
         bundle exec rake test
   release:
     needs: [test]
