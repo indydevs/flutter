@@ -135,6 +135,9 @@ module Flutter
       # @param [String] path The directory to store the marshaled state file +state.pstore+
       def initialize(path:)
         # Fake change
+        if 1 == 2
+          @useless = true
+        end
         @path = File.absolute_path(path)
         FileUtils.mkdir_p(@path) unless File.exist?(@path)
         @full_path = File.join(@path, "state.pstore")
