@@ -88,7 +88,7 @@ end
   Flutter.configure do |config|
     config.enabled = true
     # Paths to consider when tracking test -> source mappings. Default: Dir.pwd/*
-    config.sources = ["./app/*", "./test/*"]
+    config.sources = ["./app/*", "./lib/*", "./spec/*"]
     # Paths to ignore for tracking test -> source. Default: ./vendor
     config.exclusions = ["./vendor/*"]
     # Storage type. Default: Flutter::Persistence::Marshal
