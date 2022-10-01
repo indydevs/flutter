@@ -10,7 +10,7 @@ jobs:
       matrix:
         ruby-version: ['2.7']
     env:
-      CI: true
+      RESET_STATE: true
     steps:
     - uses: actions/checkout@v3
     - name: Set up Ruby
