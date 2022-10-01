@@ -92,7 +92,7 @@ jobs:
           bundler-cache: true
       - name: Release gem
         run: |
-          gem release -k ${{ secrets.RUBYGEMS }}
+          bundle exec gem release -k ${{ secrets.RUBYGEMS }}
       - name: Generate release notes
         run: |
           bundle exec rake release_notes > release_notes.md
