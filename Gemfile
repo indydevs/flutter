@@ -11,6 +11,7 @@ group :test, :development do
   gem "overcommit", "~> 0.59.1"
   gem "gem-release", "~> 2.2"
   gem "guard", "~> 2.18"
+  gem "keepachangelog", "~> 0.6.1"
   gem "rubocop", "~> 1.21"
   gem "rubocop-shopify", require: false
   gem "rubocop-minitest", "~> 0.22.1"
