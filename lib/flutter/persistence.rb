@@ -18,6 +18,7 @@ module Flutter
     # @abstract Override this class to implement a custom storage
     class AbstractStorage
       def initialize
+        # This should make all storage related tests run
         load!
       end
 
