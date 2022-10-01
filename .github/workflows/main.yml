@@ -102,6 +102,5 @@ jobs:
       - name: Create GH Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "*.gem"
           bodyFile: release_notes.md
           token: ${{ secrets.GITHUB_TOKEN }}

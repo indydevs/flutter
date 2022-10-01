@@ -51,8 +51,6 @@ task :release_notes, [:version] do |_t, args|
   parser.parsed_content.delete("title")
   parser.parsed_content["versions"] = parser.parsed_content["versions"].select { |k, _v| k == version }
   lines = parser.to_md.split("\n")
-  chunk = ["## #{version}"] + (
-    lines.slice_after { |line| line.include?("## #{version}") }.to_a[1] || []
-  )
+  chunk = lines.slice_after { |line| line.include?("## #{version}") }.to_a[1] || []
   puts chunk.join("\n")
 end
