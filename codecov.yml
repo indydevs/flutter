@@ -1,0 +1,13 @@
+coverage:
+  status:
+    project:
+      default:
+        paths:
+          - "lib"
+        branches:
+          - main
+    patch:
+      default:
+        paths:
+          - "lib"
+        informational: false

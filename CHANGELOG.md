@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 ### Added
   - Release workflow tasks & github actions integration
+  - CI integration for incremental tests in branches/pull requests
+  - CI Recipe in README
 ### Fixed
   - Ensure all methods (including inherited ones) are considered when calculating signatures for a class or module.
   - Fix calculation of total / filtered examples for rspec integration

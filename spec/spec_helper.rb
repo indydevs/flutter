@@ -23,6 +23,6 @@ require "flutter"
 Flutter.configure do |config|
   config.sources << Dir.pwd
   config.storage_options = { path: "./.flutter/rspec" }
-  config.reset_storage = ENV["CI"]
+  config.reset_storage = ENV["RESET_STATE"]
   config.enabled = true
 end
