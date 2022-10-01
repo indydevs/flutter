@@ -79,6 +79,7 @@ module Flutter
 
       # @param [String] path The directory to store the +state.yml+ file
       def initialize(path:)
+        # this should only make the yaml related tests run
         @path = File.absolute_path(path)
         @full_path = File.join(@path, "state.yml")
         @state = { test_mapping: {}, source_mapping: {} }
