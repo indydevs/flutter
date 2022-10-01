@@ -92,7 +92,10 @@ jobs:
           bundler-cache: true
       - name: Release gem
         run: |
-          bundle exec gem release -k ${{ secrets.RUBYGEMS }}
+          mkdir -p ~/.gem
+          echo ":github: \"${{ secrets.RUBYGEMS}}\"" > ~/.gem/credentials
+          chmod 0600 ~/.gem/credentials
+          bundle exec gem release -k github
       - name: Generate release notes
         run: |
           bundle exec rake release_notes > release_notes.md
