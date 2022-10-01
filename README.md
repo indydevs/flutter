@@ -3,6 +3,7 @@
 [![CI](https://github.com/indydevs/flutter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/indydevs/flutter/actions/workflows/main.yml)
 [![codecov](https://codecov.io/github/indydevs/flutter/branch/main/graph/badge.svg?token=XANF37D9C1)](https://codecov.io/github/indydevs/flutter)
 [![Gem](https://img.shields.io/gem/v/flutter)](https://rubygems.org/gems/flutter)
+[![Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://www.rubydoc.info/gems/flutter)
 
 ```
  __   __
