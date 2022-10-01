@@ -54,7 +54,7 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Retrieve cache keys
       run: |
-        echo "::set-output name=PREVIOUS_COMMIT::$(git rev-parse HEAD~1)"
+        echo "::set-output name=BRANCH_POINT::$(diff -u <(git rev-list --first-parent origin/main) <(git rev-list --first-parent HEAD) | sed -ne 's/^ //p' | head -1)"
       id: cache_keys
     - name: Setup flutter state
       id: flutter-state
@@ -65,12 +65,13 @@ jobs:
         path: .flutter
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ github.sha }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ steps.cache_keys.outputs.PREVIOUS_COMMIT }}
+          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ steps.cache_keys.outputs.BRANCH_POINT }}
+          ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-
     - name: Run tests (minitest+rspec)
       env:
         TESTOPTS: '-v'
       run: |
-        git log --oneline HEAD..${{ steps.cache_keys.outputs.PREVIOUS_COMMIT }}
+        git log --oneline HEAD..${{ steps.cache_keys.outputs.BRANCH_POINT }}
         bundle exec rake test
   release:
     needs: [test]
