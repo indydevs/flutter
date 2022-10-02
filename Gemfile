@@ -8,7 +8,7 @@ gem "rake", "~> 13.0"
 
 group :development do
   gem "yard", "~> 0.9.28"
-  gem "commonmarker", "~> 0.23.6"
+  gem "redcarpet", "~> 3.5"
 end
 
 group :test, :development do
