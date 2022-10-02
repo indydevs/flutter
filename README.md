@@ -60,6 +60,10 @@ a signature for all the methods that were exercised. On subsequent runs Flutter 
     config.reset_storage = false
   end
   ```
+- Run your test suite the way you normally would (for example: `bundle exec rake test`). The first run will run all
+  tests. After the test run has completed the mapping of test cases to exercised code will be persisted in the `./.flutter`
+  folder.
+- Now make changes and run the test suite again. Only the relevant tests will be executed.
 
 #### With guard
 Using the same configuration as above (and assuming that the application
@@ -101,6 +105,11 @@ end
     config.reset_storage = false
   end
   ```
+- Run your specs the way you normally would (for example: `bundle exec rspec`). The first run will run all
+  tests. After the test run has completed the mapping of test cases to exercised code will be persisted in the `./.flutter`
+  folder.
+- Now make changes and run rspec again. Only the relevant examples will be executed.
+
 #### With guard
 Using the same configuration as above (and assuming that the application
 sources are in the `./app` & `./lib` folders while the specs are in the `./spec` folder)
