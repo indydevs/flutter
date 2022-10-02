@@ -1,2 +1,2 @@
---markup-provider commonmarker
+--markup-provider redcarpet
 --markup markdown
