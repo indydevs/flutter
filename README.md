@@ -23,7 +23,7 @@ or in continuous integration environments to only run the subset of tests affect
 ## How?
 Flutter tracks each method call within the context of each test case in your test suite and persists this mapping along with
 a signature for all the methods that were exercised. On subsequent runs Flutter intercepts test enumeration and skips any test if
-all the following conditions are true:
+**ALL** the following conditions are true:
 
 - The test was seen before
 - The source of the test has not changed
