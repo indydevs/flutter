@@ -51,9 +51,17 @@ module Flutter
     end
 
     def build_signatures
-      require_relative @file
       @targets.each do |container|
-        instance = Kernel.const_get(container)
+        begin
+          instance = Kernel.const_get(container)
+        rescue NameError
+          require_relative @file
+          instance = Kernel.const_get(container)
+        rescue
+          $stderr.puts "Failed to inspect #{@file}"
+          break
+        end
+
         class_methods = instance.methods + instance.private_methods
         instance_methods = instance.instance_methods + instance.private_instance_methods
 
@@ -66,10 +74,10 @@ module Flutter
           ["#{container}:#{method}", hash] if hash
         end.compact.to_h)
       rescue NameError
-        $stderr.puts "failed to load #{container} in #{@file}"
+        $stderr.puts "Failed to load #{container} in #{@file}"
       end
     rescue LoadError
-      $stderr.puts "failed to inspect #{@file}"
+      $stderr.puts "Failed to inspect #{@file}"
     end
 
     def source_hash(callable)
