@@ -57,9 +57,6 @@ module Flutter
         rescue NameError
           require_relative @file
           instance = Kernel.const_get(container)
-        rescue
-          $stderr.puts "Failed to inspect #{@file}"
-          break
         end
 
         class_methods = instance.methods + instance.private_methods
@@ -73,8 +70,9 @@ module Flutter
           hash = source_hash(instance.instance_method(method))
           ["#{container}:#{method}", hash] if hash
         end.compact.to_h)
-      rescue NameError
-        $stderr.puts "Failed to load #{container} in #{@file}"
+      rescue
+        $stderr.puts "Failed to parse #{@file}"
+        break
       end
     rescue LoadError
       $stderr.puts "Failed to inspect #{@file}"
