@@ -62,11 +62,13 @@ all the following conditions are true:
   ```
 
 #### With guard
-Add the following to your `Guardfile`:
+Using the same configuration as above (and assuming that the application
+sources are in the `./lib` folder while the tests are in the `./test` folder)
+add the following to your `Guardfile`:
 
 ```ruby
 guard :minitest, test_folders: ["test"] do
-  watch(%r{^{test,lib}/(.*/)?([^/]+)\.rb$}) { "test" }
+  watch(%r{^(test|lib)/(.*/)?([^/]+)\.rb$}) { "test" }
 end
 ```
 
@@ -100,11 +102,13 @@ end
   end
   ```
 #### With guard
-Using the same configuration as above add the following to your `Guardfile`:
+Using the same configuration as above (and assuming that the application
+sources are in the `./app` & `./lib` folders while the specs are in the `./spec` folder)
+add the following to your `Guardfile`:
 
 ```ruby
 guard :rspec, cmd: "rspec" do
-  watch(%r{^{spec,lib}/(.*/)?([^/]+)\.rb$}) { "spec" }
+  watch(%r{^(spec|app|lib)/(.*/)?([^/]+)\.rb$}) { "spec" }
 end
 ```
 ## Configuring flutter in continuous integration
