@@ -2,8 +2,10 @@
 
 require "not_exist"
 
-module Parser
-  class LoadError
-    def impossible; end
+module Test
+  module Parser
+    class LoadError
+      def impossible; end
+    end
   end
 end
