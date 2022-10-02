@@ -6,6 +6,10 @@ gemspec
 
 gem "rake", "~> 13.0"
 
+group :development do
+  gem "yard", "~> 0.9.28"
+end
+
 group :test, :development do
   gem "pry", "~> 0.14.1"
   gem "overcommit", "~> 0.59.1"
