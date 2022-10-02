@@ -2,7 +2,7 @@
 
 require "not_exist"
 
-module Test
+module FlutterFixture
   module Parser
     class LoadError
       def impossible; end

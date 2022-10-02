@@ -9,8 +9,10 @@ describe Flutter::Parser do
   end
 
   it "raises no error when a file can't be parsed" do
-    assert_empty(Flutter::Parser.new(parse_fixture("parser/name_error.rb")).signatures)
-    assert_empty(Flutter::Parser.new(parse_fixture("parser/load_error.rb")).signatures)
+    refute_includes Flutter::Parser.new(parse_fixture("parser/name_error.rb")).signatures,
+      "FlutterFixture::Parser::Fu:impossible"
+    refute_includes Flutter::Parser.new(parse_fixture("parser/load_error.rb")).signatures,
+      "FlutterFixture::Parser::LoadError:impossible"
   end
 
   it "generates signatures for class and instance methods" do
