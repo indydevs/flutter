@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-module Unparseable
+module Parser
   class Fu < Bar
-    def impossible
-    end
+    def impossible; end
   end
 end
