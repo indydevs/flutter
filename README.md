@@ -43,21 +43,11 @@ a signature for all the methods that were exercised. On subsequent runs Flutter 
   ```ruby
   require 'flutter'
   ```
-- Enable & configure it in your `test_helper.rb`:
+- Enable & configure it in your `test_helper.rb` (See [Configuration options](#configuration-options) for available options):
 
   ```ruby
   Flutter.configure do |config|
     config.enabled = true
-    # Paths to consider when tracking test -> source mappings. Default: Dir.pwd/*
-    config.sources = ["./app/*", "./test/*"]
-    # Paths to ignore for tracking test -> source. Default: ./vendor
-    config.exclusions = ["./vendor/*"]
-    # Storage type. Default: Flutter::Persistence::Marshal
-    config.storage_class = Flutter::Persistence::Marshal
-    # Where to store the state. Default: ./.flutter
-    config.storage_options = {path: "./.flutter"}
-    # Whether to reset the stored state before the test run. Default: false
-    config.reset_storage = false
   end
   ```
 - Run your test suite the way you normally would (for example: `bundle exec rake test`). The first run will run all
@@ -88,21 +78,11 @@ end
   ```ruby
   require 'flutter'
   ```
-- Enable & configure it in your `spec_helper.rb`:
+- Enable & configure it in your `spec_helper.rb` (See [Configuration options](#configuration-options) for available options):
 
   ```ruby
   Flutter.configure do |config|
     config.enabled = true
-    # Paths to consider when tracking test -> source mappings. Default: Dir.pwd/*
-    config.sources = ["./app/*", "./lib/*", "./spec/*"]
-    # Paths to ignore for tracking test -> source. Default: ./vendor
-    config.exclusions = ["./vendor/*"]
-    # Storage type. Default: Flutter::Persistence::Marshal
-    config.storage_class = Flutter::Persistence::Marshal
-    # Where to store the state. Default: ./.flutter
-    config.storage_options = {path: "./.flutter"}
-    # Whether to reset the stored state before the test run. Default: false
-    config.reset_storage = false
   end
   ```
 - Run your specs the way you normally would (for example: `bundle exec rspec`). The first run will run all
@@ -120,6 +100,21 @@ guard :rspec, cmd: "rspec" do
   watch(%r{^(spec|app|lib)/(.*/)?([^/]+)\.rb$}) { "spec" }
 end
 ```
+
+### Configuration options
+|      option       | Description                                                    |                  Type                   |             Default             |
+|:-----------------:|:---------------------------------------------------------------|:---------------------------------------:|:-------------------------------:|
+|     `enabled`     | Whether flutter is enabled                                     |         `TrueClass, FalseClass`         |             `true`              |
+|     `sources`     | List of glob style expressions to select source files to track |                  `Set`                  |       `["#{Dir.pwd}/*"]`        |
+|   `exclusions`    | List of glob style expressions to exclude sources files        |                  `Set`                  |   `["#{Dir.pwd}/vendor}/*"]`    |
+|  `storage_class`  | The storage class to use for persisting the state              | `Flutter::Persistence::AbstractStorage` | `Flutter::Persistence::Marshal` |
+| `storage_options` | Additional options to pass to the storage class                |                 `Hash`                  |     `{path: './.flutter'}`      |
+|  `reset_storage`  | Whether to clear the persisted state on initialization         |         `TrueClass, FalseClass`         |             `false`             |
+
+
+
+
+
 ## Configuring flutter in continuous integration
 
 Flutter can be used in continuous integration environments to speed up the turn
