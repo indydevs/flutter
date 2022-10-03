@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "date"
 require "rake/testtask"
 require "keepachangelog"
 
@@ -31,7 +32,7 @@ task :release, [:version] do |_t, args|
     if ok
       new_version = %x(gem bump --no-commit -v #{args[:version]} | awk '{print $4}' | uniq).chomp
       parser.parsed_content["versions"]["Unreleased"] = { "url" => nil, "date" => nil, "changes" => {} }
-      parser.parsed_content["versions"][new_version] = log
+      parser.parsed_content["versions"]["#{new_version} - #{Date.today}"] = log
       File.open("CHANGELOG.md", "w") do |file|
         file.write(parser.to_md)
       end
@@ -49,7 +50,7 @@ task :release_notes, [:version] do |_t, args|
   parser = Keepachangelog::MarkdownParser.load("CHANGELOG.md")
   parser.parsed_content.delete("intro")
   parser.parsed_content.delete("title")
-  parser.parsed_content["versions"] = parser.parsed_content["versions"].select { |k, _v| k == version }
+  parser.parsed_content["versions"] = parser.parsed_content["versions"].select { |k, _v| k.start_with?(version) }
   lines = parser.to_md.split("\n")
   chunk = lines.slice_after { |line| line.include?("## #{version}") }.to_a[1] || []
   puts chunk.join("\n")
