@@ -9,6 +9,9 @@ class TestTracker < Minitest::Test
     Dir.mktmpdir
   end
 
+  def fu; end
+  def bar; end
+
   def tracker(dir)
     Flutter::Tracker.new(
       ["./lib/*", "./test/*"], [], Flutter::Persistence::Yaml, {
@@ -21,7 +24,7 @@ class TestTracker < Minitest::Test
     dir = temp_dir
     t = tracker(dir)
     t.start("fubar")
-    t.stop
+    t.stop("fubar", true)
     assert(t.persist!)
     fake_file = Tempfile.new
     refute(t.skip?("fubar", fake_file.path, "def test;end"))
@@ -32,11 +35,33 @@ class TestTracker < Minitest::Test
     dir = temp_dir
     t = tracker(dir)
     t.start("fubar")
-    t.stop
+    t.stop("fubar", true)
     fake_file = Tempfile.new
     refute(t.skip?("fubar", fake_file.path, "def test;end"))
     t.persist!
     t = tracker(dir)
     assert(t.skip?("fubar", fake_file.path, "def test;end"))
+  end
+
+  def test_failed_test_merges_tracking
+    dir = temp_dir
+    t = tracker(dir)
+    t.start("fubar")
+    fu
+    t.stop("fubar", true)
+    t.start("fubar")
+    bar
+    t.stop("fubar", false)
+    assert_equal(
+      t.test_mapping["fubar"]["test/test_tracker.rb"],
+      Set.new(["TestTracker:fu", "TestTracker:bar"]),
+    )
+    t.start("fubar")
+    bar
+    t.stop("fubar", true)
+    assert_equal(
+      t.test_mapping["fubar"]["test/test_tracker.rb"],
+      Set.new(["TestTracker:bar"]),
+    )
   end
 end

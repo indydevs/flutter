@@ -52,7 +52,8 @@ if defined?(RSpec.configure)
     config.around(:each) do |example|
       Flutter::RSpec.tracker.start(example.full_description) if Flutter.enabled
       example.run
-      Flutter::RSpec.tracker.stop if Flutter.enabled
+      Flutter::RSpec.tracker.stop(example.full_description,
+        example.execution_result.exception.nil?) if Flutter.enabled
     end
 
     config.after(:suite) do

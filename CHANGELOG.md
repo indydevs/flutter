@@ -10,7 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Delay requiring source files explicitely and only in the case where
   the constant cannot be found
-
+- Ensure the previous test->coverage mapping is merged with current
+  one when the test fails. This ensures that if the test failed before
+  the whole test could be exercised, we retain the previous knowledge of
+  excercised code paths.
 ## 0.2.1
 ### Fixed
 - Corrected integration examples for guard in README
