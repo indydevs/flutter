@@ -71,11 +71,11 @@ module Flutter
           ["#{container}:#{method}", hash] if hash
         end.compact.to_h)
       rescue
-        $stderr.puts "Failed to parse #{@file}"
+        warn("Failed to parse #{@file}")
         break
       end
     rescue LoadError
-      $stderr.puts "Failed to inspect #{@file}"
+      warn("Failed to inspect #{@file}")
     end
 
     def source_hash(callable)
