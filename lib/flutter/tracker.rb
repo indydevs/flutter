@@ -26,6 +26,7 @@ module Flutter
       @exclusions = exclusions.map { |s| File.absolute_path(s) }
       @storage = storage_class.new(**storage_options)
       @test_mapping = @storage.test_mapping
+      @previous_test_mapping = {}
       @test_source_mapping = {}
       @source_mapping = @storage.source_mapping
       @current_source_mapping = {}
@@ -39,7 +40,7 @@ module Flutter
     def start(test)
       # Delete test from the in-memory mapping to allow each new test run
       # to store all the functions that the test calls into
-      @test_mapping.delete(test)
+      @previous_test_mapping[test] = @test_mapping.delete(test)
       @current_tracepoint = TracePoint.new(:call) do |tp|
         hit!(test, tp)
       end
@@ -47,8 +48,11 @@ module Flutter
     end
 
     # End tracking (should be called after a call to {#start})
-    def stop
+    # @param [String] test A unique identifier for the test
+    # @param [TrueClass, FalseClass] success Whether the test succeeded
+    def stop(test, success)
       @current_tracepoint&.disable
+      @test_mapping[test].merge!(@previous_test_mapping.delete(test) || {}) { |_, old, new| old + new } unless success
     end
 
     ##
