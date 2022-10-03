@@ -27,9 +27,9 @@ desc "Increment the version, update changelog and create a tag for the release"
 task :release, [:version] do |_t, args|
   parser = Keepachangelog::MarkdownParser.load("CHANGELOG.md")
   log = parser.parsed_content["versions"].delete("Unreleased")
-  sh("gem bump --pretend #{args[:version]}") do |ok, _|
+  sh("gem bump --pretend -v #{args[:version]}") do |ok, _|
     if ok
-      new_version = %x(gem bump --no-commit #{args[:version]} | awk '{print $4}' | uniq).chomp
+      new_version = %x(gem bump --no-commit -v #{args[:version]} | awk '{print $4}' | uniq).chomp
       parser.parsed_content["versions"]["Unreleased"] = { "url" => nil, "date" => nil, "changes" => {} }
       parser.parsed_content["versions"][new_version] = log
       File.open("CHANGELOG.md", "w") do |file|

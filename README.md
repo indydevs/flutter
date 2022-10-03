@@ -183,9 +183,9 @@ To install this gem onto your local machine, run `bundle exec rake install`.
   and contains useful details.
 - Create a new release using the `release` rake task as follows (for more details about specifying the version change
   run `gem bump --help` which is the command used by the task):
-  - Patch release `bundle exec rake release["-v patch"]`
-  - Minor release `bundle exec rake release["-v minor"]`
-  - Major release `bundle exec rake release["-v major"]`
+  - Patch release `bundle exec rake release["patch"]`
+  - Minor release `bundle exec rake release["minor"]`
+  - Major release `bundle exec rake release["major"]`
   > **Note**
   > The `release` rake task automates updating the changelog & version, committing the changes & creating a new tag
 - Push the tag. The CI workflow for tag pushes will take care of publishing the gem & creating a github release.
