@@ -19,7 +19,7 @@ require "flutter"
 
 Flutter.configure do |config|
   config.enabled = true
-  config.reset_storage = ENV["RESET_STATE"]
+  config.reset_storage = ENV["RESET_STATE"] == "true"
 end
 
 require "minitest"
