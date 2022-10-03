@@ -6,6 +6,7 @@ require 'flutter/persistence'
 require_relative '../config/boot'
 
 Flutter.configure do |config|
+  config.storage_options = {path: "./flutter/integration"}
   config.enabled = true
 end
 
