@@ -62,7 +62,7 @@ module Flutter
       end
 
       def before_teardown
-        Minitest.flutter_tracker&.stop if ::Flutter.enabled
+        Minitest.flutter_tracker&.stop(location, failures.empty?) if ::Flutter.enabled
         super
       end
     end

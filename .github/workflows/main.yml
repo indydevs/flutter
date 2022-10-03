@@ -8,41 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.7']
-    env:
-      RESET_STATE: true
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Lint
-      run: bundle exec rubocop
-    - name: Run tests (minitest+rspec)
-      env:
-        TESTOPTS: '-v'
-      run: bundle exec rake test
-    - name: Run integration tests
-      run: |
-        bundle exec rake integration
-        bundle exec rake integration
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./coverage/coverage.xml,./rspec_coverage/coverage.xml
-    - name: Upload flutter state
-      uses: actions/upload-artifact@v3
-      with:
-        name: flutter-state
-        path: ./.flutter
-  flutter:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby-version: ['2.7']
+        ruby-version: ['2.7', '3.0', '3.1']
     steps:
     - uses: actions/checkout@v3
       with:
@@ -51,7 +17,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+        bundler-cache: true
     - name: Retrieve branch point
       if: github.event_name == 'pull_request'
       run: |
@@ -67,15 +33,31 @@ jobs:
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.ruby-version }}-${{ steps.cache_keys.outputs.KEY }}
-    - name: Clear flutter state
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
-      run: rm -rf .flutter
+    - name: Lint
+      run: bundle exec rubocop
     - name: Run tests (minitest+rspec)
       env:
         TESTOPTS: '-v'
+        RESET_STATE: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') }}
       run: |
-        git log --oneline HEAD..${{ steps.cache_keys.outputs.KEY }}
+        echo "Test options: $TESTOPTS"
+        echo "Reset flutter state: $RESET_STATE"
         bundle exec rake test
+    - name: Run integration tests
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
+      run: |
+        bundle exec rake integration
+        bundle exec rake integration
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage/coverage.xml,./rspec_coverage/coverage.xml
+    - name: Upload flutter state
+      uses: actions/upload-artifact@v3
+      with:
+        name: flutter-state
+        path: ./.flutter
   release:
     needs: [test]
     runs-on: ubuntu-latest
