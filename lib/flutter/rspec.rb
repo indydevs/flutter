@@ -17,6 +17,8 @@ module Flutter
 
     module ClassMethods
       def filtered_examples
+        return super unless Flutter.enabled
+
         Flutter::RSpec.filtered ||= Set.new
         Flutter::RSpec.total ||= Set.new
         Flutter::RSpec.tracker.reset! if Flutter.enabled && Flutter.config.reset_storage

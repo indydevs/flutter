@@ -42,6 +42,8 @@ module Flutter
     module Hooks
       module ClassMethods
         def runnable_methods
+          return super unless ::Flutter.enabled
+
           Flutter::Minitest.filtered ||= 0
           Flutter::Minitest.total ||= 0
           default = super()
