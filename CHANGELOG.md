@@ -5,14 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## 0.2.2 - 2022-10-03
 ### Added
 - Document configuration options in README
+
 ### Changed
 - Delay requiring source files explicitely and only in the case where the constant cannot be found
 - Ensure the previous test->coverage mapping is merged with current one when the test fails.
+
 ## 0.2.1
 ### Fixed
 - Corrected integration examples for guard in README
+
 ## 0.2.0
 ### Added
 - CI Recipe in README
