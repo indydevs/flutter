@@ -12,8 +12,8 @@
  (_/ \_)
 
 ```
-Flutter plugs in to your [RSpec](https://rspec.info/) or [Minitest](https://github.com/minitest/minitest) test suites and helps you run only the tests that exercise the
-code you have changed since the last run.
+Flutter plugs in to your [RSpec](https://rspec.info/) or [Minitest](https://github.com/minitest/minitest) test suites to
+run only the tests that exercise the code that has changed since the last run.
 
 It can be used in local development as a live incremental test runner in
 combination with [Guard](https://github.com/guard/guard) (See examples for [minitest](#with-guard) and [rspec](#with-guard-1) respectively)

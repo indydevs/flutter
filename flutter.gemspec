@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.email = ["ali@indydevs.org", "ankita@indydevs.org"]
 
   spec.summary = "Intelligent test selection based on incremental code changes"
-  spec.description = 'Flutter plugs in to your RSpec or Minitest test suites
-  and helps you run only the tests that exercise the code you have changed since the last run
+  spec.description = 'Plug in for RSpec & Minitest test suites
+  to run only the tests that exercise the code that has changed
   '
   spec.homepage = "https://flutter.indydevs.org"
   spec.license = "MIT"
