@@ -13,9 +13,9 @@ module Flutter
       attr_reader :method_cache
     end
 
-    def initialize(file)
+    def initialize(file, hints = [])
       @signatures = {}
-      @targets = Set.new
+      @targets = Set.new(hints)
       if File.exist?(file)
         code = File.open(file, "r").read
         @file = File.absolute_path(file)

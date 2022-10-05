@@ -30,8 +30,14 @@ module Flutter
       end
 
       # Mapping of +source file -> callable_id -> signature+
-      # @return [Hash<String, Hash<String, String>>] mapping
+      # @return [Hash<String, Hash<String, String>>]
       def source_mapping
+        raise NotImplementedError
+      end
+
+      # Mapping of +source file -> class or module
+      # @return [Hash<String, Set<String>]
+      def source_hints
         raise NotImplementedError
       end
 
@@ -47,7 +53,8 @@ module Flutter
       # Update {#source_mapping}
       #
       # @param [Hash<String, Hash<String, String>>] mapping
-      def update_source_mapping!(mapping)
+      # @param [Hash<String, Hash<String, String>>] hints
+      def update_source_mapping!(mapping, hints)
         raise NotImplementedError
       end
 
@@ -103,14 +110,20 @@ module Flutter
         @state.fetch(:source_mapping) { @state[:source_mapping] = {} }
       end
 
+      # (see AbstractStorage#source_hints)
+      def source_hints
+        @state.fetch(:source_hints) { @state[:source_hints] = {} }
+      end
+
       # (see AbstractStorage#update_test_mapping!)
       def update_test_mapping!(mapping)
         test_mapping.merge!(mapping)
       end
 
       # (see AbstractStorage#update_source_mapping!)
-      def update_source_mapping!(mapping)
+      def update_source_mapping!(mapping, hints)
         source_mapping.merge!(mapping)
+        source_hints.merge!(hints)
       end
 
       # (see AbstractStorage#clear!)
@@ -153,14 +166,21 @@ module Flutter
       # (see AbstractStorage#test_mapping)
       def test_mapping
         @state.transaction do
-          return @state[:test_mapping]
+          return @state[:test_mapping] || {}
         end
       end
 
       # (see AbstractStorage#source_mapping)
       def source_mapping
         @state.transaction do
-          return @state[:source_mapping]
+          return @state[:source_mapping] || {}
+        end
+      end
+
+      # (see AbstractStorage#source_hints)
+      def source_hints
+        @state.transaction do
+          return @state[:source_hints] || {}
         end
       end
 
@@ -173,10 +193,12 @@ module Flutter
       end
 
       # (see AbstractStorage#update_source_mapping!)
-      def update_source_mapping!(mapping)
+      def update_source_mapping!(mapping, hints)
         @state.transaction do
           @state[:source_mapping] ||= {}
+          @state[:source_hints] ||= {}
           @state[:source_mapping].merge!(mapping)
+          @state[:source_hints].merge!(hints)
         end
       end
 

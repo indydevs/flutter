@@ -33,6 +33,7 @@ module Flutter
       @path_mapping = {}
       @method_prefixes = {}
       @tracked_files = {}
+      @source_hints = @storage.source_hints
     end
 
     # Starts tracking calls made by +test+
@@ -80,7 +81,7 @@ module Flutter
 
       sources = @test_mapping[test]
       sources.map do |file, methods|
-        @current_source_mapping[file] ||= Flutter::Parser.new(file).signatures
+        @current_source_mapping[file] ||= Flutter::Parser.new(file, @source_hints[file]).signatures
         methods.map do |method|
           @source_mapping.dig(file, method) == @current_source_mapping.dig(file, method)
         end.all?
@@ -93,7 +94,7 @@ module Flutter
     # @return [void]
     def persist!
       @storage.update_test_mapping!(@test_mapping)
-      @storage.update_source_mapping!(generate_source_mapping)
+      @storage.update_source_mapping!(generate_source_mapping, @source_hints)
       @storage.persist!
     end
 
@@ -119,11 +120,12 @@ module Flutter
 
       if tracked?(tracepoint.path, tracepoint.callee_id)
         rel_path = relative_path(tracepoint.path)
-        prefix = method_prefix(tracepoint.defined_class)
+        class_name, seperator = method_prefix(tracepoint.defined_class).values_at(:class, :seperator)
+        @source_hints.fetch(rel_path) { @source_hints[rel_path] = Set.new } << class_name if class_name
         @test_mapping.fetch(test) do
           @test_mapping[test] = {}
         end.fetch(rel_path) { @test_mapping[test][rel_path] = Set.new } << (
-          prefix ? "#{prefix}#{tracepoint.callee_id}" : tracepoint.callee_id
+          class_name ? "#{class_name}#{seperator}#{tracepoint.callee_id}" : tracepoint.callee_id
         )
       end
     end
@@ -133,22 +135,22 @@ module Flutter
     end
 
     ##
-    # Returns a prefix based on Tracepoint.defined_class
+    # Returns a (class name, separator) prefix based on Tracepoint.defined_class
     #
     # @param [Class] tracepoint_class
-    # @return [String]
+    # @return [Hash<Symbol, String>]
     #
     def method_prefix(tracepoint_class)
-      return unless tracepoint_class
+      return { class: nil, seperator: nil } unless tracepoint_class
 
       @method_prefixes[tracepoint_class] ||= if tracepoint_class.to_s.start_with?("#<Class")
         if tracepoint_class.superclass.name && tracepoint_class.to_s.include?(tracepoint_class.superclass.name)
-          "#{tracepoint_class.superclass.name}::"
+          { class: tracepoint_class.superclass.name, separator: "::" }
         else
-          tracepoint_class.to_s.sub(/#<Class:(.*?)(\(.*?\))?>/, '\1::')
+          { class: tracepoint_class.to_s.sub(/#<Class:(.*?)(\(.*?\))?>/, '\1'), separator: "::" }
         end
       else
-        "#{tracepoint_class.name}:"
+        { class: tracepoint_class.name, seperator: ":" }
       end
     end
 
@@ -173,7 +175,7 @@ module Flutter
     # @return [Hash<String, Hash<String, Hash<String, String>>>]
     def generate_source_mapping
       @test_mapping.map { |_k, v| v.keys }.flatten.uniq.map do |file|
-        [file, @current_source_mapping.fetch(file) { Flutter::Parser.new(file).signatures }]
+        [file, @current_source_mapping.fetch(file) { Flutter::Parser.new(file, @source_hints[file] || []).signatures }]
       end.to_h.deep_merge(@test_source_mapping)
     end
   end

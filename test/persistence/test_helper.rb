@@ -23,7 +23,7 @@ module StorageTest
 
   def test_reload_storage
     storage = create_storage
-    storage.update_source_mapping!({ "fu" => { "bar" => "quz" } })
+    storage.update_source_mapping!({ "fu" => { "bar" => "quz" } }, {})
     storage.update_test_mapping!({ "quz" => { "bar" => "fu" } })
     storage.persist!
     storage = create_storage
