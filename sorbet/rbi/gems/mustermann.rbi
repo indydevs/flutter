@@ -235,6 +235,12 @@ class Mustermann::AST::Translator
   def self.translate(*types, &block); end
   def translate(node, *args, &block); end
 end
+class Anonymous_Delegator_40
+end
+class Anonymous_Delegator_41
+end
+class Anonymous_Delegator_44
+end
 class Mustermann::AST::Translator::NodeTranslator < Anonymous_Delegator_40
   def initialize(node, translator); end
   def node; end

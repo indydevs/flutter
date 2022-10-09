@@ -79,7 +79,19 @@ class Thor::CoreExt::HashWithIndifferentAccess < Hash
   def to_hash; end
   def values_at(*indices); end
 end
-class Anonymous_Struct_43 < Struct
+class Thor::Command < T::Struct
+  def formatted_usage(klass, namespace = nil, subcommand = nil); end
+  def handle_argument_error?(instance, error, caller); end
+  def handle_no_method_error?(instance, error, caller); end
+  def hidden?; end
+  def initialize_copy(other); end
+  def local_method?(instance, name); end
+  def not_debugging?(instance); end
+  def private_method?(instance); end
+  def public_method?(instance); end
+  def required_options; end
+  def run(instance, args = nil); end
+  def sans_backtrace(backtrace, caller); end
   def ancestor_name; end
   def ancestor_name=(_); end
   def description; end
@@ -97,12 +109,11 @@ class Anonymous_Struct_43 < Struct
   def usage; end
   def usage=(_); end
 end
-class Thor::Command < Anonymous_Struct_43
+class Thor::HiddenCommand < T::Struct
+  def hidden?; end
   def formatted_usage(klass, namespace = nil, subcommand = nil); end
   def handle_argument_error?(instance, error, caller); end
   def handle_no_method_error?(instance, error, caller); end
-  def hidden?; end
-  def initialize(name, description, long_description, usage, options = nil); end
   def initialize_copy(other); end
   def local_method?(instance, name); end
   def not_debugging?(instance); end
@@ -111,13 +122,52 @@ class Thor::Command < Anonymous_Struct_43
   def required_options; end
   def run(instance, args = nil); end
   def sans_backtrace(backtrace, caller); end
+  def ancestor_name; end
+  def ancestor_name=(_); end
+  def description; end
+  def description=(_); end
+  def long_description; end
+  def long_description=(_); end
+  def name; end
+  def name=(_); end
+  def options; end
+  def options=(_); end
+  def self.[](*arg0); end
+  def self.inspect; end
+  def self.members; end
+  def self.new(*arg0); end
+  def usage; end
+  def usage=(_); end
 end
-class Thor::HiddenCommand < Thor::Command
-  def hidden?; end
-end
-class Thor::DynamicCommand < Thor::Command
-  def initialize(name, options = nil); end
+class Thor::DynamicCommand < T::Struct
   def run(instance, args = nil); end
+  def formatted_usage(klass, namespace = nil, subcommand = nil); end
+  def handle_argument_error?(instance, error, caller); end
+  def handle_no_method_error?(instance, error, caller); end
+  def hidden?; end
+  def initialize_copy(other); end
+  def local_method?(instance, name); end
+  def not_debugging?(instance); end
+  def private_method?(instance); end
+  def public_method?(instance); end
+  def required_options; end
+  def sans_backtrace(backtrace, caller); end
+  def ancestor_name; end
+  def ancestor_name=(_); end
+  def description; end
+  def description=(_); end
+  def long_description; end
+  def long_description=(_); end
+  def name; end
+  def name=(_); end
+  def options; end
+  def options=(_); end
+  def self.[](*arg0); end
+  def self.inspect; end
+  def self.members; end
+  def self.new(*arg0); end
+  def usage; end
+  def usage=(_); end
 end
 class Thor::CoreExt::OrderedHash < Hash
 end

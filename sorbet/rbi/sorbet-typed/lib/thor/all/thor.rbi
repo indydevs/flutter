@@ -360,7 +360,7 @@ module Thor::Base::ClassMethods
   def print_options(shell, options, group_name = T.unsafe(nil)); end
 end
 
-class Thor::Command < ::Struct
+class Thor::Command < T::Struct
   Elem = type_member {{fixed: T.untyped}}
 
   def initialize(name, description, long_description, usage, options = T.unsafe(nil)); end
@@ -380,6 +380,21 @@ class Thor::Command < ::Struct
   def required_arguments_for(klass, usage); end
   def required_options; end
   def sans_backtrace(backtrace, caller); end
+  def ancestor_name; end
+  def description; end
+  def description=(_); end
+  def long_description; end
+  def long_description=(_); end
+  def name; end
+  def name=(_); end
+  def options; end
+  def options=(_); end
+  def self.[](*arg0); end
+  def self.inspect; end
+  def self.members; end
+  def self.new(*arg0); end
+  def usage; end
+  def usage=(_); end
 
   private
 
@@ -419,12 +434,45 @@ end
 
 Thor::Correctable = DidYouMean::Correctable
 
-class Thor::DynamicCommand < ::Thor::Command
+class Thor::DynamicCommand < T::Struct
   Elem = type_member {{fixed: T.untyped}}
 
   def initialize(name, options = T.unsafe(nil)); end
 
   def run(instance, args = T.unsafe(nil)); end
+  def formatted_usage(klass, namespace = T.unsafe(nil), subcommand = T.unsafe(nil)); end
+  def hidden?; end
+
+  protected
+
+  def handle_argument_error?(instance, error, caller); end
+  def handle_no_method_error?(instance, error, caller); end
+  def local_method?(instance, name); end
+  def not_debugging?(instance); end
+  def private_method?(instance); end
+  def public_method?(instance); end
+  def required_arguments_for(klass, usage); end
+  def required_options; end
+  def sans_backtrace(backtrace, caller); end
+  def ancestor_name; end
+  def description; end
+  def description=(_); end
+  def long_description; end
+  def long_description=(_); end
+  def name; end
+  def name=(_); end
+  def options; end
+  def options=(_); end
+  def self.[](*arg0); end
+  def self.inspect; end
+  def self.members; end
+  def self.new(*arg0); end
+  def usage; end
+  def usage=(_); end
+
+  private
+
+  def initialize_copy(other); end
 end
 
 Thor::DynamicTask = Thor::DynamicCommand
@@ -472,10 +520,46 @@ end
 
 Thor::HELP_MAPPINGS = T.let(T.unsafe(nil), T::Array[T.untyped])
 
-class Thor::HiddenCommand < ::Thor::Command
+class Thor::HiddenCommand < T::Struct
   Elem = type_member {{fixed: T.untyped}}
 
   def hidden?; end
+
+  def initialize(name, description, long_description, usage, options = T.unsafe(nil)); end
+
+  def formatted_usage(klass, namespace = T.unsafe(nil), subcommand = T.unsafe(nil)); end
+  def run(instance, args = T.unsafe(nil)); end
+
+  protected
+
+  def handle_argument_error?(instance, error, caller); end
+  def handle_no_method_error?(instance, error, caller); end
+  def local_method?(instance, name); end
+  def not_debugging?(instance); end
+  def private_method?(instance); end
+  def public_method?(instance); end
+  def required_arguments_for(klass, usage); end
+  def required_options; end
+  def sans_backtrace(backtrace, caller); end
+  def ancestor_name; end
+  def description; end
+  def description=(_); end
+  def long_description; end
+  def long_description=(_); end
+  def name; end
+  def name=(_); end
+  def options; end
+  def options=(_); end
+  def self.[](*arg0); end
+  def self.inspect; end
+  def self.members; end
+  def self.new(*arg0); end
+  def usage; end
+  def usage=(_); end
+
+  private
+
+  def initialize_copy(other); end
 end
 
 Thor::HiddenTask = Thor::HiddenCommand
