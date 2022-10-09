@@ -9,6 +9,9 @@ gem "rake", "~> 13.0"
 group :development do
   gem "yard", "~> 0.9.28"
   gem "redcarpet", "~> 3.5"
+  # Sorbet
+  gem "sorbet"
+  gem "tapioca", require: false
 end
 
 group :test, :development do
@@ -22,6 +25,8 @@ group :test, :development do
   gem "rubocop-minitest", "~> 0.22.1"
   gem "rubocop-rspec", "~> 2.13"
   gem "rubocop-rake", "~> 0.6.0"
+  # Sorbet
+  gem 'sorbet-runtime'
   # For integration test app
   gem "dotenv"
   gem "grape"

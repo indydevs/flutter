@@ -1,3 +1,4 @@
+# typed: true
 module Skee
   module Test
     module Fixtures

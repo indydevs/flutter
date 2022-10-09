@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../../app/event/service'
 require_relative '../../app/property/service'
 

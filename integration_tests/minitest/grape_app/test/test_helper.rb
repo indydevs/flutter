@@ -1,3 +1,4 @@
+# typed: strict
 require 'rack/test'
 require 'minitest/autorun'
 require 'flutter'

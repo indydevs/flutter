@@ -1,3 +1,4 @@
+# typed: strict
 require_relative './common/doc'
 module Skee
   module DB

@@ -1,3 +1,4 @@
+# typed: strict
 require 'rubygems'
 require 'grape'
 require 'grape-entity'

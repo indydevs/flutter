@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../../test_helper'
 module Skee
   module API
