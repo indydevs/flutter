@@ -26,7 +26,7 @@ group :test, :development do
   gem "rubocop-rspec", "~> 2.13"
   gem "rubocop-rake", "~> 0.6.0"
   # Sorbet
-  gem 'sorbet-runtime'
+  gem "sorbet-runtime"
   # For integration test app
   gem "dotenv"
   gem "grape"
