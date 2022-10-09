@@ -4,7 +4,7 @@ module Skee
   module DB
     module Proto
       class EventSnapshot < Proto::Common::Doc
-        @all_docs = []
+        @all_docs = T.let([], T::Array[T.untyped])
       end
     end
   end

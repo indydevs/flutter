@@ -5,7 +5,6 @@
 module ::Anonymous_Delegator_40; end
 module ::Anonymous_Delegator_41; end
 module ::Anonymous_Delegator_44; end
-module FlutterFixture::Parser::Bar; end
 module Grape::Extensions::ActiveSupport::Autoload; end
 module T::CompatibilityPatches::RSpecCompatibility::MethodDoubleExtensions; end
 module T::CompatibilityPatches::RSpecCompatibility::RecorderExtensions; end
