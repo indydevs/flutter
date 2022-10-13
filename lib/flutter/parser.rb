@@ -70,6 +70,8 @@ module Flutter
           hash = source_hash(instance.instance_method(method))
           ["#{container}:#{method}", hash] if hash
         end.compact.to_h)
+      rescue NameError
+        next
       rescue
         warn("Failed to parse #{@file}")
         break
