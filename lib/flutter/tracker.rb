@@ -4,7 +4,6 @@ require "deep_merge"
 require "set"
 require_relative "persistence"
 require_relative "parser"
-require "pry"
 
 module Flutter
   # @attr [Hash<String, Hash<String, Set<String>>>] test_mapping Mapping of tests to
