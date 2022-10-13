@@ -5,8 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
-## Added
+### Added
 - Use source hints from coverage to include dynamically added classes in signature generation
+- Explicit dependency on `pry` for reflecting sources of methods
 
 ## 0.2.4 - 2022-10-04
 ### Changed

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "parser/current"
+require "pry"
 require "digest/sha1"
 require "set"
 
