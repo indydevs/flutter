@@ -33,6 +33,7 @@ module Flutter
       @method_prefixes = {}
       @tracked_files = {}
       @source_hints = @storage.source_hints
+      @tracker_pwd = Dir.pwd
     end
 
     # Starts tracking calls made by +test+
@@ -130,7 +131,7 @@ module Flutter
     end
 
     def relative_path(file)
-      @path_mapping[file] ||= Pathname.new(file).relative_path_from(Dir.pwd).to_s
+      @path_mapping[file] ||= Pathname.new(file).relative_path_from(@tracker_pwd).to_s
     end
 
     ##
