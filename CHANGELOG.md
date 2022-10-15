@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Changed
+- Switch from `pry` to `method_source` as the actual dependency for inspecting method sources for generating signatures
+
 ## 0.2.6 - 2022-10-14
 ### Added
 - Backward compatibilty hack for default values in `dry-configurable < 0.13`

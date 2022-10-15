@@ -32,6 +32,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency("deep_merge", " ~> 1.2")
   spec.add_dependency("dry-configurable", "~> 0.11")
+  spec.add_dependency("method_source", "~> 1.0")
   spec.add_dependency("parser", "~> 3.1")
-  spec.add_dependency("pry", "~> 0.13")
 end

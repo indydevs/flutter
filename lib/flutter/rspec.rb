@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "pry"
+require "method_source"
 require_relative "tracker"
 
 module Flutter
