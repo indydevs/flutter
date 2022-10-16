@@ -120,12 +120,12 @@ module Flutter
 
       if tracked?(tracepoint.path, tracepoint.callee_id)
         rel_path = relative_path(tracepoint.path)
-        class_name, seperator = method_prefix(tracepoint.defined_class).values_at(:class, :seperator)
+        class_name, separator = method_prefix(tracepoint.defined_class).values_at(:class, :separator)
         @source_hints.fetch(rel_path) { @source_hints[rel_path] = Set.new } << class_name if class_name
         @test_mapping.fetch(test) do
           @test_mapping[test] = {}
         end.fetch(rel_path) { @test_mapping[test][rel_path] = Set.new } << (
-          class_name ? "#{class_name}#{seperator}#{tracepoint.callee_id}" : tracepoint.callee_id
+          class_name ? "#{class_name}#{separator}#{tracepoint.callee_id}" : tracepoint.callee_id
         )
       end
     end
@@ -141,7 +141,7 @@ module Flutter
     # @return [Hash<Symbol, String>]
     #
     def method_prefix(tracepoint_class)
-      return { class: nil, seperator: nil } unless tracepoint_class
+      return { class: nil, separator: nil } unless tracepoint_class
 
       @method_prefixes[tracepoint_class] ||= if tracepoint_class.to_s.start_with?("#<Class")
         if tracepoint_class.superclass.name && tracepoint_class.to_s.include?(tracepoint_class.superclass.name)
@@ -150,7 +150,7 @@ module Flutter
           { class: tracepoint_class.to_s.sub(/#<Class:(.*?)(\(.*?\))?>/, '\1'), separator: "::" }
         end
       else
-        { class: tracepoint_class.name, seperator: ":" }
+        { class: tracepoint_class.name, separator: ":" }
       end
     end
 
