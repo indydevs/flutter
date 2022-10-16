@@ -170,9 +170,9 @@ module Flutter
     end
 
     ##
-    # Generates a mapping of
+    # Generates a mapping of source files to method=>signatures
     #
-    # @return [Hash<String, Hash<String, Hash<String, String>>>]
+    # @return [Hash<String, Hash<String, String>>]
     def generate_source_mapping
       @test_mapping.map { |_k, v| v.keys }.flatten.uniq.map do |file|
         [file, @current_source_mapping.fetch(file) { Flutter::Parser.new(file, @source_hints[file] || []).signatures }]
