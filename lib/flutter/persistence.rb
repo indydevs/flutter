@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "deep_merge"
 require "fileutils"
 require "set"
 module Flutter
@@ -122,8 +123,8 @@ module Flutter
 
       # (see AbstractStorage#update_source_mapping!)
       def update_source_mapping!(mapping, hints)
-        source_mapping.merge!(mapping)
-        source_hints.merge!(hints)
+        source_mapping.deep_merge!(mapping)
+        source_hints.deep_merge!(hints)
       end
 
       # (see AbstractStorage#clear!)
@@ -197,8 +198,8 @@ module Flutter
         @state.transaction do
           @state[:source_mapping] ||= {}
           @state[:source_hints] ||= {}
-          @state[:source_mapping].merge!(mapping)
-          @state[:source_hints].merge!(hints)
+          @state[:source_mapping].deep_merge!(mapping)
+          @state[:source_hints].deep_merge!(hints)
         end
       end
 
