@@ -74,12 +74,14 @@ module Flutter
       @test_source_mapping.fetch(test_location_rel) do
         @test_source_mapping[test_location_rel] = {}
       end[test] = Digest::SHA1.hexdigest(test_source)
-      return false unless
-        @test_mapping.key?(test) && @test_source_mapping[test_location_rel][test] == @source_mapping.dig(
-          test_location_rel, test
-        )
+      test_seen = @test_mapping.key?(test)
 
-      sources = @test_mapping[test]
+      test_source_unchanged = @test_source_mapping[test_location_rel][test] == @source_mapping.dig(
+        test_location_rel, test
+      )
+      return unless test_seen && test_source_unchanged
+
+      sources = @test_mapping[test] || {}
       sources.map do |file, methods|
         @current_source_mapping[file] ||= Flutter::Parser.new(file, @source_hints[file]).signatures
         methods.map do |method|
