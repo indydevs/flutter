@@ -1,3 +1,4 @@
+# typed: false
 require_relative '../api_helpers'
 require_relative './response_entity'
 require_relative './spec_response'

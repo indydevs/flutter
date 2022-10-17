@@ -1,3 +1,4 @@
+# typed: strict
 module Skee
   module API
     module Routes

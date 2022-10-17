@@ -1,3 +1,4 @@
+# typed: false
 require_relative './routes/trackable_object/api'
 require_relative './routes/property/api'
 require_relative './routes/event/api'

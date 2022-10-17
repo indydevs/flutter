@@ -1,3 +1,4 @@
+# typed: false
 require_relative './service'
 require_relative './validator'
 require_relative './expand_tracking_spec_events'

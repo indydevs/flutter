@@ -1,3 +1,4 @@
+# typed: true
 module Skee
   module App
     module ChangeRequest

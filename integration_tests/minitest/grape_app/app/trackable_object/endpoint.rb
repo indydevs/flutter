@@ -1,3 +1,4 @@
+# typed: true
 require_relative './service'
 module Skee::App::TrackableObject
   class Endpoint

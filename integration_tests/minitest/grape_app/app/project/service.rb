@@ -1,3 +1,4 @@
+# typed: true
 require_relative '../../db/proto/project'
 module Skee
   module App

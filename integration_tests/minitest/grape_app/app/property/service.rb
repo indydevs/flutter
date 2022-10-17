@@ -1,3 +1,4 @@
+# typed: true
 require_relative '../../app/versioned_entity/service'
 module Skee
   module App

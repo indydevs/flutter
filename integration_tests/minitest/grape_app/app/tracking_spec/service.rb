@@ -1,3 +1,4 @@
+# typed: true
 require_relative '../../db/proto/tracking_spec'
 module Skee
   module App

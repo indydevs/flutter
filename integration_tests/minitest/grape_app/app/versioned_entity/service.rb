@@ -1,3 +1,4 @@
+# typed: false
 require_relative 'validator'
 require_relative 'entity'
 require_relative '../versioned_entity_snapshot/entity'

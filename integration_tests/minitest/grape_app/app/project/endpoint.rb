@@ -1,3 +1,4 @@
+# typed: true
 require_relative './service'
 module Skee::App::Project
   class Endpoint

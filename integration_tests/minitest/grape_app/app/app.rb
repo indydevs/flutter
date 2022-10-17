@@ -1,3 +1,4 @@
+# typed: true
 require_relative './utils/errors/api_exceptions'
 require_relative './utils/errors/service_exceptions'
 

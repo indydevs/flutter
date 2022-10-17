@@ -1,3 +1,4 @@
+# typed: strict
 require_relative '../event/response_entity'
 require_relative '../trackable_object/response_entity'
 require_relative '../property/response_entity'
