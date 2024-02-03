@@ -79,7 +79,7 @@ module Flutter
       test_source_unchanged = @test_source_mapping[test_location_rel][test] == @source_mapping.dig(
         test_location_rel, test
       )
-      return unless test_seen && test_source_unchanged
+      return false unless test_seen && test_source_unchanged
 
       sources = @test_mapping[test] || {}
       sources.map do |file, methods|

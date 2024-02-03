@@ -46,7 +46,7 @@ end
 
 desc "Get release notes for the current or specific version"
 task :release_notes, [:version] do |_t, args|
-  version = (args[:version] || Flutter::VERSION)
+  version = args[:version] || Flutter::VERSION
   parser = Keepachangelog::MarkdownParser.load("CHANGELOG.md")
   parser.parsed_content.delete("intro")
   parser.parsed_content.delete("title")

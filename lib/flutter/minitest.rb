@@ -5,7 +5,7 @@ require_relative "tracker"
 
 begin
   require "minitest"
-rescue LoadError  # rubocop:disable Lint/SuppressedException
+rescue LoadError # rubocop:disable Lint/SuppressedException
 end
 
 module Flutter
@@ -15,8 +15,10 @@ module Flutter
 
       def flutter_tracker
         @tracker ||= Flutter::Tracker.new(
-          Flutter.config.sources, Flutter.config.exclusions,
-          Flutter.config.storage_class, Flutter.config.storage_options
+          Flutter.config.sources,
+          Flutter.config.exclusions,
+          Flutter.config.storage_class,
+          Flutter.config.storage_options,
         )
       end
     end

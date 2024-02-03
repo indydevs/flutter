@@ -96,7 +96,7 @@ module Flutter
       # (see AbstractStorage#load!)
       def load!
         if File.exist?(@full_path)
-          persisted = YAML.load(File.read(@full_path), **YAML_LOAD_OPTS)
+          persisted = YAML.load_file(@full_path, **YAML_LOAD_OPTS)
           @state.update(persisted) if persisted
         end
       end
