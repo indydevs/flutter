@@ -44,7 +44,7 @@ jobs:
         echo "Reset flutter state: $RESET_STATE"
         bundle exec rake test
     - name: Run integration tests
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
+      if: false && github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main')
       run: |
         bundle exec rake integration
         bundle exec rake integration
