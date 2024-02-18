@@ -1,3 +1,4 @@
+# typed: strict
 require_relative '../api_helpers'
 require_relative './response_entity'
 require 'ostruct'

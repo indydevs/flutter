@@ -1,9 +1,10 @@
+# typed: strict
 require_relative './common/doc'
 module Skee
   module DB
     module Proto
       class Project < Proto::Common::Doc
-        @all_docs = [
+        @all_docs = T.let([
           OpenStruct.new(
             id: 'proj123',
             name: 'project 1 lah',
@@ -14,7 +15,7 @@ module Skee
             name: 'project 2 lah',
             description: 'project desc 2 leh'
           )
-        ]
+        ], T::Array[OpenStruct])
       end
     end
   end

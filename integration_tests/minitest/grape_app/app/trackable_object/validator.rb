@@ -1,3 +1,4 @@
+# typed: true
 require_relative '../../app/change_request/service'
 require_relative '../../app/tracking_spec/service'
 module Skee

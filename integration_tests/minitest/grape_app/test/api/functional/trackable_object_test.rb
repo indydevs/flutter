@@ -1,3 +1,4 @@
+# typed: true
 require_relative '../../test_helper'
 require_relative 'versioned_entity_helper'
 module Skee
